@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-4">
+              <h1>Hotel Rooms</h1>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="redirectNewRoomPage()">New Room</button>
+            </div>
+          </div>
+
+        </header>
+      </section>
+
+      <section class="main">
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Number of places</th>
+            <th>Free places</th>
+            <th>pet type</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let room of rooms">
+            <th scope="row">{{room.roomNumber}}<th>
+            <td>{{room.numberOfPlaces}}</td>
+            <td>{{room.freePlaces}}</td>
+            <td>{{room.petType}}</td>
+            <button type="button" class="btn btn-success" (click)="editRoomPage(room)">Edit</button>
+            <button type="button" class="btn btn-danger" (click)="deleteRoom(room)">Delete</button>
+            <td>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>

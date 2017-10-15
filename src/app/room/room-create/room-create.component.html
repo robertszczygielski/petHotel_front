@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <form novalidate [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+          <fieldset>
+            <div class="form-group">
+              <label>Room Number</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="roomNumber">
+            </div>
+
+            <div class="form-group">
+              <label>Number of places</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="numberOfPlaces">
+            </div>
+
+            <div class="form-group">
+              <label>pet Type</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="petType">
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary"  [disabled]="!roomForm.valid">Submit</button>
+          <button type="button" class="btn btn-warning" (click)="redirectRoomPage()">Cancel</button>
+          <pre>{{roomForm.value | json}}</pre>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
