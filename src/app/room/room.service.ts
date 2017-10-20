@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Room } from "./Room";
+import { Room } from "../dtos/Room";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 

@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-4">
+              <h1>Users</h1>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-2">
+
+            </div>
+          </div>
+
+        </header>
+      </section>
+
+      <section class="main">
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>pet number</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let baseOwnerInfo of baseOwnerInfos">
+            <th scope="row">{{baseOwnerInfo.id}}</th>
+            <td>{{baseOwnerInfo.firstName}}</td>
+            <td>{{baseOwnerInfo.lastName}}</td>
+            <td>{{baseOwnerInfo.petNumbers}}</td>
+            <!--<button type="button" class="btn btn-success" (click)="openModal(baseOwnerInfo.id)">Show-->
+              <!--Details</button>-->
+            <!--<button type="button" class="btn btn-danger" (click)="deleteOwner(baseOwnerInfo.id)">Delete</button>-->
+            <td>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>
