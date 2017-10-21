@@ -4,6 +4,7 @@ import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
+import {Pet} from "../dtos/Pet";
 
 @Injectable()
 export class HotelService {
@@ -15,6 +16,12 @@ export class HotelService {
   getBasicOwnersInfo(): Observable<BasicOwnerInfo[]> {
     return this.http.get(this.baseUrl + 'clients/getAllClients')
       .map((res: Response) => res.json())
+      .catch((err: any) => Observable.throw(err.json().error || 'SE'));
+  }
+
+  getAllOwnerPets(id: Number): Observable<Pet[]> {
+    return this.http.get(this.baseUrl + 'clients/showAllPets/' + id)
+      .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw(err.json().error || 'SE'));
   }
 }

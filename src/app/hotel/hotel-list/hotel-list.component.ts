@@ -1,3 +1,4 @@
+///<reference path="../hotel.service.ts"/>
 import { Component, OnInit } from '@angular/core';
 import { BasicOwnerInfo } from "../../dtos/BaseOwnerInfo";
 import { HotelService } from "../hotel.service";
@@ -19,7 +20,6 @@ export class HotelListComponent implements OnInit {
 
   ngOnInit() {
     this.getBasicOwnerInfo();
-    this.baseOwnerInfos = [new BasicOwnerInfo(1, "asssssssss", "bdddddddddddddddddddd", 111)];
   }
 
   private getBasicOwnerInfo() {
@@ -32,4 +32,13 @@ export class HotelListComponent implements OnInit {
     );
   }
 
+  allOwnerPets(id: Number) {
+    this.hotelService.getAllOwnerPets(id).subscribe(
+      ownerPets => {
+        this.ownerPets = ownerPets;
+      }, err => {
+        console.log(err);
+      }
+    );
+  }
 }
