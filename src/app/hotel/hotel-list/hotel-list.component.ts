@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BasicOwnerInfo } from "../../dtos/BaseOwnerInfo";
 import { HotelService } from "../hotel.service";
+import {Pet} from "../../dtos/Pet";
 
 
 @Component({
@@ -12,12 +13,13 @@ import { HotelService } from "../hotel.service";
 export class HotelListComponent implements OnInit {
 
   private baseOwnerInfos: BasicOwnerInfo[];
+  private ownerPets: Pet[];
 
   constructor(private hotelService: HotelService) { }
 
   ngOnInit() {
     this.getBasicOwnerInfo();
-    this.baseOwnerInfos.push(new BasicOwnerInfo(1, "a", "b", 1));
+    this.baseOwnerInfos = [new BasicOwnerInfo(1, "asssssssss", "bdddddddddddddddddddd", 111)];
   }
 
   private getBasicOwnerInfo() {
@@ -30,7 +32,4 @@ export class HotelListComponent implements OnInit {
     );
   }
 
-  openModal(id: Number) {
-
-  }
 }

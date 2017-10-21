@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { HotelRoutingModule } from './hotel-routing.module';
 import { HotelCreateComponent } from './hotel-create/hotel-create.component';
 import { HotelListComponent } from './hotel-list/hotel-list.component';
-import { PetModalComponent } from './pet-modal/pet-modal.component';
 
 @NgModule({
   imports: [
@@ -13,8 +12,7 @@ import { PetModalComponent } from './pet-modal/pet-modal.component';
   ],
   declarations: [
     HotelCreateComponent,
-    HotelListComponent,
-    PetModalComponent
+    HotelListComponent
   ]
 })
 export class HotelModule { }
