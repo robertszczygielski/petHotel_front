@@ -41,4 +41,14 @@ export class HotelListComponent implements OnInit {
       }
     );
   }
+
+  deleteOwner(id: Number) {
+    if (id) {
+      this.hotelService.deleteOwner(id).subscribe(
+        res => {
+          console.log("Deleted Owner: " + id);
+        }
+      );
+    }
+  }
 }
