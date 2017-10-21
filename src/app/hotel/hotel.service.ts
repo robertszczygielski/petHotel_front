@@ -24,4 +24,9 @@ export class HotelService {
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw(err.json().error || 'SE'));
   }
+
+  deleteOwner(id: Number): Observable<boolean> {
+    return this.http.delete(this.baseUrl + 'clients/delete/' + id)
+      .catch((err: any) => Observable.throw(err.json().error || 'SE'));
+  }
 }

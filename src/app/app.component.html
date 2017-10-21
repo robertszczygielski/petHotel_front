@@ -1,6 +1,13 @@
-<nav>
-  <a routerLink="/room" routerLinkActive="active">Rooms</a>
-  <a routerLink="/hotel" routerLinkActive="active">Hotel</a>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Heaven For Pets</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/room" routerLinkActive="active">Rooms</a></li>
+      <li><a routerLink="/hotel" routerLinkActive="active">Hotel</a></li>
+    </ul>
+  </div>
 </nav>
 
 <router-outlet></router-outlet>
