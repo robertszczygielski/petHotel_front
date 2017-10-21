@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { RoomService } from "../room.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Room } from "../Room";
+import { Room } from "../../dtos/Room";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
