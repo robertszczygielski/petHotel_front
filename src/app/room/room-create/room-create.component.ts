@@ -11,9 +11,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   providers: [RoomService]
 })
 export class RoomCreateComponent implements OnInit, OnDestroy {
-  private roomNumber: number;
 
-  private room: Room;
+  private roomNumber: number;
   private roomForm: FormGroup;
   private sub: any;
 
@@ -61,7 +60,7 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
         this.roomForm.controls['numberOfPlaces'].value,
         this.roomForm.controls['petType'].value);
       this.roomService.updateRoom(room).subscribe();
-    } else {
+      } else {
         let room: Room = new Room(
           this.roomForm.controls['roomNumber'].value,
           this.roomForm.controls['numberOfPlaces'].value,
