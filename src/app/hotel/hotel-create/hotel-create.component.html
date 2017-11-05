@@ -1,3 +1,129 @@
-<p>
-  hotel-create works!
-</p>
+<div class="container">
+  <!--<div class="row">-->
+    <!--<div class="col">-->
+      <section>
+        <form novalidate [formGroup]="ownerForm" (ngSubmit)="onSubmitOwner()">
+          <fieldset>
+
+            <div class="row">
+            <div class="col-xs-6 col-md-4">
+              <label>Customer First Name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="firstName">
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+              <label>Customer Last Name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="lastName">
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+              <label>Owner Type</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="ownerCategory">
+            </div>
+           </div>
+
+           <div class="row">
+            <div class="col-xs-6 col-md-3">
+              <label>City</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="city">
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <label>Street</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="street">
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <label>House number</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="numberofHouse">
+            </div>
+
+            <div class="col-xs-6 col-md-1">
+              <label>Flat</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="numberofFlat">
+            </div>
+
+            <div class="col-xs-6 col-md-2">
+              <label>Zip code</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="zipCode">
+            </div>
+           </div>
+
+            <br/>
+            <form novalidate [formGroup]="petForm" (ngSubmit)="onSubmitPet()">
+
+              <div class="row">
+                <div class="col-xs-6 col-md-2">
+                  <label class="sr-only">Pet Name</label>
+                  <input type="text"
+                         class="form-control"
+                         formControlName="petName"
+                         placeholder="Pet Name">
+                </div>
+
+                <div class="col-xs-6 col-md-6">
+                  <label class="sr-only">Comment</label>
+                  <input type="text"
+                         class="form-control"
+                         formControlName="petComment"
+                         placeholder="Comment">
+                </div>
+
+                <div class="col-xs-6 col-md-1">
+                  <label class="sr-only">Pet Type</label>
+                  <input type="text"
+                         class="form-control"
+                         formControlName="petType"
+                         placeholder="Pet Type">
+                </div>
+
+                <div class="col-xs-6 col-md-1">
+                  <label class="sr-only">Room</label>
+                  <input type="text"
+                         class="form-control"
+                         formControlName="petRoomNumber"
+                         placeholder="Room">
+                </div>
+
+                <div class="col-xs-6 col-md-1">
+                  <button type="submit" class="btn btn-sm btn-success"  [disabled]="!petForm.valid">Add</button>
+                </div>
+              </div>
+
+            </form>
+          </fieldset>
+
+          <br/>
+          <tr *ngFor="let pet of pets">
+            <td class="col-xs-6 col-md-2">{{pet.name}}<td>
+            <td class="col-xs-6 col-md-6">{{pet.comment}}</td>
+            <td class="col-xs-6 col-md-2">{{pet.petType}}</td>
+            <td class="col-xs-6 col-md-1">{{pet.roomNumber}}</td>
+            <td>
+            </td>
+          </tr>
+
+          <br/>
+          <button type="submit" class="btn btn-primary"  [disabled]="!ownerForm.valid">Submit</button>
+          <button type="button" class="btn btn-warning" (click)="redirectRoomPage()">Cancel</button>
+        </form>
+      </section>
+    <!--</div>-->
+  <!--</div>-->
+</div>

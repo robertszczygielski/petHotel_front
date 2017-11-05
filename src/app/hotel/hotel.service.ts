@@ -5,6 +5,7 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 import {Pet} from "../dtos/Pet";
+import { Owner } from "../dtos/Owner";
 
 @Injectable()
 export class HotelService {
@@ -29,4 +30,10 @@ export class HotelService {
     return this.http.delete(this.baseUrl + 'clients/delete/' + id)
       .catch((err: any) => Observable.throw(err.json().error || 'SE'));
   }
+
+  saveOwner(owner: Owner): Observable<Owner> {
+    return this.http.post(this.baseUrl + 'hotel/add', owner)
+      .catch((err: any) => Observable.throw(err.json().error || "Save Owner SE"));
+  }
+
 }
