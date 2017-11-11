@@ -19,6 +19,7 @@ export class RoomService {
   }
 
   saveRoom(room: Room): Observable<Room> {
+    console.log(room);
     return this.http.post(this.baseUrl + 'add', room)
       .catch((err: any) => Observable.throw(err.json().error) || 'Server error');
   }
