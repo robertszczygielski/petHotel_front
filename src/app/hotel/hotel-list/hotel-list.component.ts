@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { BasicOwnerInfo } from "../../dtos/BaseOwnerInfo";
 import { HotelService } from "../hotel.service";
 import {Pet} from "../../dtos/Pet";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -16,7 +17,8 @@ export class HotelListComponent implements OnInit {
   private baseOwnerInfos: BasicOwnerInfo[];
   private ownerPets: Pet[];
 
-  constructor(private hotelService: HotelService) { }
+  constructor(private hotelService: HotelService,
+              private router: Router) { }
 
   ngOnInit() {
     this.getBasicOwnerInfo();
@@ -50,5 +52,9 @@ export class HotelListComponent implements OnInit {
         }
       );
     }
+  }
+
+  redirectNewCostomerPage() {
+    this.router.navigate(['/hotel/add']);
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RoomService } from "../room.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Room } from "../../dtos/Room";
@@ -12,8 +12,6 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class RoomCreateComponent implements OnInit, OnDestroy {
   private roomNumber: number;
-
-  private room: Room;
   private roomForm: FormGroup;
   private sub: any;
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-hotel-create',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HotelCreateComponent implements OnInit {
 
-  constructor() { }
+  private hotelForm: FormGroup;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.hotelForm = new FormGroup({
+      roomNumber: new FormControl('', Validators.required),
+      numberOfPlaces: new FormControl('', Validators.required),
+      petType: new FormControl('', Validators.required)
+    });
+
   }
 
+  onSubmit() {
+
+    this.hotelForm.reset();
+    this.router.navigate(['/room']);
+  }
 }
