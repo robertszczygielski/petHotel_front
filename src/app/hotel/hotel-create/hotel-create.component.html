@@ -85,20 +85,26 @@
                          placeholder="Comment">
                 </div>
 
-                <div class="col-xs-6 col-md-1">
-                  <label class="sr-only">Pet Type</label>
-                  <input type="text"
-                         class="form-control"
-                         formControlName="petType"
-                         placeholder="Pet Type">
+                <div class="col-xs-6 col-md-1 dropdown show">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{petType}}
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <button *ngFor="let type of petTypes" class="dropdown-item" type="button"
+                            (click)="setPetType(type)">{{type}}</button>
+                  </div>
                 </div>
 
                 <div class="col-xs-6 col-md-1">
-                  <label class="sr-only">Room</label>
-                  <input type="text"
-                         class="form-control"
-                         formControlName="petRoomNumber"
-                         placeholder="Room">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{roomNumber}}
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <button *ngFor="let room of rooms" class="dropdown-item" type="button"
+                            (click)="setRoom(room)">{{room.roomNumber}}</button>
+                  </div>
                 </div>
 
                 <div class="col-xs-6 col-md-1">

@@ -4,6 +4,7 @@ import { Pet } from "../../dtos/Pet";
 import { Owner } from "../../dtos/Owner";
 import { Address } from "../../dtos/Address";
 import { HotelService } from "../hotel.service";
+import {Room} from "../../dtos/Room";
 
 @Component({
   selector: 'app-hotel-create',
@@ -13,10 +14,14 @@ import { HotelService } from "../hotel.service";
 })
 export class HotelCreateComponent implements OnInit {
 
-  private ownerForm: FormGroup;
-  private petForm: FormGroup;
-  private pets: Pet[] = [];
-  private owner: Owner;
+  protected ownerForm: FormGroup;
+  protected petForm: FormGroup;
+  protected pets: Pet[] = [];
+  protected owner: Owner;
+  protected petTypes: string[] = ["Fish", "Bird", "Mammal"];
+  protected petType: string = "pet type";
+  protected rooms: Room[] = [];
+  protected roomNumber: number = 0;
 
   constructor(private hotelService: HotelService) { }
 
@@ -80,5 +85,20 @@ export class HotelCreateComponent implements OnInit {
       this.ownerForm.reset();
       this.petForm.reset();
     }
+  }
+
+  setPetType(type: string) {
+    this.petType = type;
+    this.hotelService.getRoomsForType(type.toUpperCase()).subscribe(
+      rooms => {
+        this.rooms = rooms;
+      }, err => {
+        console.log(err);
+      }
+    );;
+  }
+
+  setRoom(room: Room) {
+    this.roomNumber = room.roomNumber;
   }
 }

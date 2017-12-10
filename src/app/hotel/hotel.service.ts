@@ -36,4 +36,9 @@ export class HotelService {
       .catch((err: any) => Observable.throw(err.json().error || "Save Owner SE"));
   }
 
+  getRoomsForType(type: string) {
+    return this.http.get(this.baseUrl + 'hotel/getAllRoomsByType/' + type)
+      .map((res: Response) => res.json())
+      .catch((err: any) => Observable.throw(err.json().error || "room for SE"));
+  }
 }
