@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { RoomModule } from "./room/room.module";
 import { HttpModule } from "@angular/http";
 import { HotelModule } from "./hotel/hotel.module";
+import {BsDropdownModule} from "ngx-bootstrap";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HotelModule } from "./hotel/hotel.module";
     HttpModule,
     // my modules
     RoomModule,
-    HotelModule
+    HotelModule,
+    BsDropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
