@@ -77,16 +77,10 @@
                          placeholder="Pet Name">
                 </div>
 
-                <div class="col-xs-6 col-md-6">
-                  <label class="sr-only">Comment</label>
-                  <input type="text"
-                         class="form-control"
-                         formControlName="petComment"
-                         placeholder="Comment">
-                </div>
 
                 <div class="col-xs-6 col-md-1 dropdown show">
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petTypeDropdown"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{petType}}
                   </a>
 
@@ -97,7 +91,8 @@
                 </div>
 
                 <div class="col-xs-6 col-md-1">
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="roomNumberDropdown"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{roomNumber}}
                   </a>
 
@@ -107,8 +102,30 @@
                   </div>
                 </div>
 
+                <div class="col-xs-6 col-md-4">
+                  <div class="form-group">
+                    Begin: <input class="form-control" formControlName="beginDate" name="date" placeholder="DD/MM/YYYY"
+                                  type="text"/>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="form-group">
+                    End: <input class="form-control" formControlName="endDate" name="date" placeholder="DD/MM/YYYY" type="text"/>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-xs-6 col-md-6">
+                  <label class="sr-only">Comment</label>
+                  <textarea name="petComment" cols="100%" rows="5"></textarea>
+                </div>
+              </div>
+
+              <div class="row">
                 <div class="col-xs-6 col-md-1">
-                  <button type="submit" class="btn btn-sm btn-success"  [disabled]="!petForm.valid">Add</button>
+                  <button type="submit" class="btn btn-sm btn-success" [disabled]="!petForm.valid">Add</button>
                 </div>
               </div>
 

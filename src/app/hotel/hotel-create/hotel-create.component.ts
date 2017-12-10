@@ -40,21 +40,32 @@ export class HotelCreateComponent implements OnInit {
 
     this.petForm = new FormGroup({
       petName: new FormControl('', Validators.required),
-      petComment: new FormControl('', Validators.required),
-      petType: new FormControl('', Validators.required),
-      petRoomNumber: new FormControl('', Validators.required)
+      petComment: new FormControl(''),
+      petType: new FormControl(''),
+      petRoomNumber: new FormControl(''),
+      beginDate: new FormControl(''),
+      endDate: new FormControl('')
     });
 
   }
 
   onSubmitPet() {
     if (this.petForm.valid) {
+      let parts = this.petForm.controls['beginDate'].value.split('/');
+      let newBdata: Date = new Date(+parts[2],+parts[1]-1, +parts[0]);
+      parts = this.petForm.controls['endDate'].value.split('/');
+      let newEdata: Date = new Date(+parts[2],+parts[1]-1, +parts[0]);
+
       let pet: Pet = new Pet(
         this.petForm.controls['petName'].value,
         this.petForm.controls['petComment'].value,
-        this.petForm.controls['petType'].value,
-        this.petForm.controls['petRoomNumber'].value,
+        this.petType,
+        this.roomNumber,
+        newBdata,
+        newEdata
       );
+
+      console.log(pet);
 
       this.pets.push(pet);
 
@@ -92,6 +103,7 @@ export class HotelCreateComponent implements OnInit {
     this.hotelService.getRoomsForType(type.toUpperCase()).subscribe(
       rooms => {
         this.rooms = rooms;
+        this.roomNumber = 0;
       }, err => {
         console.log(err);
       }

@@ -16,6 +16,7 @@ import {BsDropdownModule} from "ngx-bootstrap";
     BrowserModule,
     AppRoutingModule,
     HttpModule,
+
     // my modules
     RoomModule,
     HotelModule,
