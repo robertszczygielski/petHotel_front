@@ -24,7 +24,7 @@ export class HotelCreateComponent implements OnInit {
   protected ownerType: string = "Owner Type";
   protected rooms: Room[] = [];
   protected roomNumber: number = 0;
-<
+
   constructor(private hotelService: HotelService) { }
 
   ngOnInit() {
