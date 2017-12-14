@@ -20,9 +20,11 @@ export class HotelCreateComponent implements OnInit {
   protected owner: Owner;
   protected petTypes: string[] = ["Fish", "Bird", "Mammal"];
   protected petType: string = "pet type";
+  protected ownerTypes: string[] = ["VIP", "GOLD", "SILVER", "NORMAL", "NO_SERVICE"];
+  protected ownerType: string = "Owner Type";
   protected rooms: Room[] = [];
   protected roomNumber: number = 0;
-
+<
   constructor(private hotelService: HotelService) { }
 
   ngOnInit() {
@@ -65,8 +67,6 @@ export class HotelCreateComponent implements OnInit {
         newEdata
       );
 
-      console.log(pet);
-
       this.pets.push(pet);
 
       this.petForm.reset();
@@ -86,7 +86,7 @@ export class HotelCreateComponent implements OnInit {
       this.owner = new Owner(
         this.ownerForm.controls['firstName'].value,
         this.ownerForm.controls['lastName'].value,
-        this.ownerForm.controls['ownerCategory'].value,
+        this.ownerType,
         this.pets,
         address
       );
@@ -112,5 +112,15 @@ export class HotelCreateComponent implements OnInit {
 
   setRoom(room: Room) {
     this.roomNumber = room.roomNumber;
+  }
+
+  setOwnerType(ownerType: string) {
+    this.ownerType = ownerType;
+  }
+
+  selectedAllDropdownMenus(): boolean {
+    return !(this.ownerType === "Owner Type"
+      && this.roomNumber === 0
+      && this.petType === "pet type");
   }
 }

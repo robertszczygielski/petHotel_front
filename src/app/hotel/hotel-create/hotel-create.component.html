@@ -21,10 +21,17 @@
             </div>
 
             <div class="col-xs-6 col-md-4">
-              <label>Owner Type</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="ownerCategory">
+              <label>Owner Type</label><br>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="ownerTypeDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ownerType}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let ownerType of ownerTypes" class="dropdown-item" type="button"
+                        (click)="setOwnerType(ownerType)">{{ownerType}}</button>
+              </div>
+
             </div>
            </div>
 
@@ -125,7 +132,9 @@
 
               <div class="row">
                 <div class="col-xs-6 col-md-1">
-                  <button type="submit" class="btn btn-sm btn-success" [disabled]="!petForm.valid">Add</button>
+                  <button type="submit" class="btn btn-sm btn-success"
+                          [disabled]="!petForm.valid && selectedAllDropdownMenus()">Add
+                  </button>
                 </div>
               </div>
 
