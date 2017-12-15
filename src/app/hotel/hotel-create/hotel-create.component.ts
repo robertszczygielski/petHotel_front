@@ -5,6 +5,8 @@ import { Owner } from "../../dtos/Owner";
 import { Address } from "../../dtos/Address";
 import { HotelService } from "../hotel.service";
 import {Room} from "../../dtos/Room";
+import {PetTypes} from "../../enums/PetTypes";
+import {OwnerTypes} from "../../enums/OwnerTypes";
 
 @Component({
   selector: 'app-hotel-create',
@@ -18,9 +20,9 @@ export class HotelCreateComponent implements OnInit {
   protected petForm: FormGroup;
   protected pets: Pet[] = [];
   protected owner: Owner;
-  protected petTypes: string[] = ["Fish", "Bird", "Mammal"];
+  protected petTypes: String[] = [];
   protected petType: string = "pet type";
-  protected ownerTypes: string[] = ["VIP", "GOLD", "SILVER", "NORMAL", "NO_SERVICE"];
+  protected ownerTypes: string[] = [];
   protected ownerType: string = "Owner Type";
   protected rooms: Room[] = [];
   protected roomNumber: number = 0;
@@ -28,6 +30,18 @@ export class HotelCreateComponent implements OnInit {
   constructor(private hotelService: HotelService) { }
 
   ngOnInit() {
+
+    for (var i in PetTypes) {
+      if(typeof PetTypes[i] === 'number') {
+        this.petTypes.push(i);
+      }
+    }
+
+    for (var i in OwnerTypes) {
+      if(typeof OwnerTypes[i] === 'number') {
+        this.ownerTypes.push(i);
+      }
+    }
 
     this.ownerForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
@@ -107,7 +121,7 @@ export class HotelCreateComponent implements OnInit {
       }, err => {
         console.log(err);
       }
-    );;
+    );
   }
 
   setRoom(room: Room) {
@@ -118,9 +132,8 @@ export class HotelCreateComponent implements OnInit {
     this.ownerType = ownerType;
   }
 
-  selectedAllDropdownMenus(): boolean {
-    return !(this.ownerType === "Owner Type"
-      && this.roomNumber === 0
+  selectedAllDropdownForPet(): boolean {
+    return !(this.roomNumber === 0
       && this.petType === "pet type");
   }
 }

@@ -3,6 +3,7 @@ import { RoomService } from "../room.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Room } from "../../dtos/Room";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import {PetTypes} from "../../enums/PetTypes";
 
 @Component({
   selector: 'app-room-create',
@@ -12,15 +13,24 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class RoomCreateComponent implements OnInit, OnDestroy {
 
-  private roomNumber: number;
-  private roomForm: FormGroup;
-  private sub: any;
+  protected roomNumber: number;
+  protected roomForm: FormGroup;
+  protected sub: any;
+  protected petTypes: String[] = [];
+  protected petType: string = "pet type";
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private roomService: RoomService) { }
 
   ngOnInit() {
+
+    for (var i in PetTypes) {
+      if(typeof PetTypes[i] === 'number') {
+        this.petTypes.push(i);
+      }
+    }
+
     this.sub = this.route.params.subscribe(params => {
       this.roomNumber = params['roomNumber']
     });
@@ -28,7 +38,7 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
     this.roomForm = new FormGroup({
       roomNumber: new FormControl('', Validators.required),
       numberOfPlaces: new FormControl('', Validators.required),
-      petType: new FormControl('', Validators.required)
+      petType: new FormControl('')
     });
 
     if (this.roomNumber) {
@@ -58,14 +68,14 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
         this.roomNumber,
         this.roomForm.controls['numberOfPlaces'].value,
         this.roomForm.controls['numberOfPlaces'].value,
-        this.roomForm.controls['petType'].value);
+        this.petType);
       this.roomService.updateRoom(room).subscribe();
       } else {
         let room: Room = new Room(
           this.roomForm.controls['roomNumber'].value,
           this.roomForm.controls['numberOfPlaces'].value,
           this.roomForm.controls['numberOfPlaces'].value,
-          this.roomForm.controls['petType'].value);
+          this.petType);
         this.roomService.saveRoom(room).subscribe();
       }
 
@@ -77,5 +87,13 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
 
   redirectRoomPage() {
     this.router.navigate(['/room']);
+  }
+
+  setPetType(type: string) {
+    this.petType = type;
+  }
+
+  petTypeIsValid() {
+    return this.petType === "pet type";
   }
 }
