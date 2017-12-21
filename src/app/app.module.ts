@@ -7,6 +7,7 @@ import { RoomModule } from "./room/room.module";
 import { HttpModule } from "@angular/http";
 import { HotelModule } from "./hotel/hotel.module";
 import {BsDropdownModule} from "ngx-bootstrap";
+import {FoodModule} from "./food/food.module";
 
 @NgModule({
   declarations: [
@@ -15,12 +16,12 @@ import {BsDropdownModule} from "ngx-bootstrap";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BsDropdownModule,
     HttpModule,
-
     // my modules
     RoomModule,
     HotelModule,
-    BsDropdownModule
+    FoodModule
   ],
   providers: [],
   bootstrap: [AppComponent]

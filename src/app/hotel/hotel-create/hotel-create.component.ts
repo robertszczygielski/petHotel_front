@@ -7,6 +7,7 @@ import { HotelService } from "../hotel.service";
 import {Room} from "../../dtos/Room";
 import {PetTypes} from "../../enums/PetTypes";
 import {OwnerTypes} from "../../enums/OwnerTypes";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-hotel-create',
@@ -27,7 +28,8 @@ export class HotelCreateComponent implements OnInit {
   protected rooms: Room[] = [];
   protected roomNumber: number = 0;
 
-  constructor(private hotelService: HotelService) { }
+  constructor(private hotelService: HotelService,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -135,5 +137,9 @@ export class HotelCreateComponent implements OnInit {
   selectedAllDropdownForPet(): boolean {
     return !(this.roomNumber === 0
       && this.petType === "pet type");
+  }
+
+  redirectRoomPage() {
+    this.router.navigate(['/hotel']);
   }
 }
