@@ -38,17 +38,18 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
     this.roomForm = new FormGroup({
       roomNumber: new FormControl('', Validators.required),
       numberOfPlaces: new FormControl('', Validators.required),
-      petType: new FormControl('')
+      price: new FormControl('', Validators.required)
     });
 
     if (this.roomNumber) {
       this.roomService.findByRoomNumber(this.roomNumber).subscribe(
         room => {
           this.roomNumber = room.roomNumber;
+          this.petType = room.petType;
           this.roomForm.patchValue({
             roomNumber: room.roomNumber,
             numberOfPlaces: room.numberOfPlaces,
-            petType: room.petType,
+            price: room.price,
           });
         }, err => {
           console.log(err);
@@ -68,14 +69,16 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
         this.roomNumber,
         this.roomForm.controls['numberOfPlaces'].value,
         this.roomForm.controls['numberOfPlaces'].value,
-        this.petType);
+        this.petType,
+        this.roomForm.controls['price'].value);
       this.roomService.updateRoom(room).subscribe();
       } else {
         let room: Room = new Room(
           this.roomForm.controls['roomNumber'].value,
           this.roomForm.controls['numberOfPlaces'].value,
           this.roomForm.controls['numberOfPlaces'].value,
-          this.petType);
+          this.petType,
+          this.roomForm.controls['price'].value);
         this.roomService.saveRoom(room).subscribe();
       }
 

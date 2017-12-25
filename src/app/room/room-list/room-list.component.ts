@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class RoomListComponent implements OnInit {
 
-  private rooms: Room[];
+  protected rooms: Room[];
 
   constructor(private roomService: RoomService,
               private router: Router) { }
