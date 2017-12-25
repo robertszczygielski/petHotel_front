@@ -8,6 +8,7 @@ import { Room } from "../../dtos/Room";
 import { PetTypes } from "../../enums/PetTypes";
 import { OwnerTypes } from "../../enums/OwnerTypes";
 import { Router } from "@angular/router";
+import { Food } from "../../dtos/Food";
 
 @Component({
   selector: 'app-hotel-create',
@@ -27,12 +28,19 @@ export class HotelCreateComponent implements OnInit {
   protected ownerType: string = "Owner Type";
   protected rooms: Room[] = [];
   protected roomNumber: number = 0;
+  protected petBreakfast: Food;
+  protected petDinner: Food;
+  protected petSupper: Food;
 
   constructor(private hotelService: HotelService,
               private router: Router) {
   }
 
   ngOnInit() {
+    let tmpFood: Food = new Food('food', 'non', 0, 'non', 'non', 0);
+    this.petBreakfast = tmpFood;
+    this.petDinner = tmpFood;
+    this.petSupper = tmpFood;
 
     for (var i in PetTypes) {
       if (typeof PetTypes[i] === 'number') {

@@ -125,6 +125,49 @@
           </div>
 
           <div class="row">
+
+            <div class="col-xs-6 col-md-2 dropdown show">
+              <label>Breakfast</label><br>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petBreakfastDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{petBreakfast.name}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let room of rooms" class="dropdown-item" type="button"
+                        (click)="setRoom(room)">{{room.roomNumber}}</button>
+              </div>
+            </div>
+
+            <div class="col-xs-6 col-md-2 dropdown show">
+              <label>Dinner</label><br>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petDinnerDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{petDinner.name}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let room of rooms" class="dropdown-item" type="button"
+                        (click)="setRoom(room)">{{room.roomNumber}}</button>
+              </div>
+            </div>
+
+            <div class="col-xs-6 col-md-2 dropdown show">
+              <label>Supper</label><br>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petSupperDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{petSupper.name}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let room of rooms" class="dropdown-item" type="button"
+                        (click)="setRoom(room)">{{room.roomNumber}}</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
             <div class="col-xs-6 col-md-6">
               <label class="sr-only">Comment</label><br>
               <textarea name="petComment" cols="100%" rows="5"></textarea>
