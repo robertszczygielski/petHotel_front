@@ -1,5 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-1">
+              <h1>Foods</h1>
+            </div>
+            <div class="col-md-9">
 
-<div class="col-md-2">
-  <button type="button" class="btn btn-primary" (click)="redirectCreateFood()">New Customer</button>
+            <div class="col-md-6 dropdown show">
+              <label>Pet type</label>
+              <a class="btn btn-secondary dropdown-menu-left" href="#" role="button" id="petTypeDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{petType}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let type of petTypes" class="dropdown-item" type="button"
+                        (click)="setPetType(type)">{{type}}</button>
+              </div>
+            </div>
+
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="redirectCreateFood()">Add Food</button>
+            </div>
+          </div>
+
+        </header>
+      </section>
+
+      <section class="main">
+
+        <table class="table">
+          <thead>
+          <tr>
+
+            <th>Food Name</th>
+            <th>Food Type</th>
+            <th>Taste</th>
+            <th>Amount</th>
+            <th>Price</th>
+
+          </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let food of foodList">
+              <td class="col-md-3">{{food.name}}</td>
+              <td class="col-md-3">{{food.foodType.toString()}}</td>
+              <td class="col-md-2">{{food.taste}}</td>
+              <td class="col-md-2">{{food.amount}}</td>
+              <td class="col-md-2">{{food.price}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
 </div>
-

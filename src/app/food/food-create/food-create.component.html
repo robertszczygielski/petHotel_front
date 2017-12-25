@@ -1,3 +1,108 @@
-<p>
-  food-create works!
-</p>
+<div class="container">
+  <section>
+    <form novalidate (ngSubmit)="onSubmitAllFood()">
+      <form novalidate [formGroup]="foodForm" (ngSubmit)="onSubmitFood()">
+        <fieldset>
+
+          <div class="row">
+            <div class="col-xs-6 col-md-4">
+              <label>Food name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="foodName">
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+              <label>Food taste</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="foodTaste">
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+              <label>Food Type</label><br>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="foodTypeDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{foodType}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let foodType of foodTypes" class="dropdown-item" type="button"
+                        (click)="setFoodType(foodType)">{{foodType}}</button>
+              </div>
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+              <label>Pet Type</label><br>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petTypeDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{petType}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let petType of petTypes" class="dropdown-item" type="button"
+                        (click)="setPetType(petType)">{{petType}}</button>
+              </div>
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+              <label>Amount:</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="amount">
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+              <label>Price:</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="price">
+            </div>
+
+            <br>
+            <div class="row">
+              <div class="col-xs-6 col-md-1">
+                <button type="submit" class="btn btn-sm btn-success"
+                        [disabled]="!(foodForm.valid && selectedAllDropdownForFood())">Add
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </fieldset>
+      </form>
+
+      <br/>
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="col-xs-6 col-md-1">#</th>
+          <th class="col-xs-6 col-md-2">Name</th>
+          <th class="col-xs-6 col-md-6">Taste</th>
+          <th class="col-xs-6 col-md-2">Food Type</th>
+          <th class="col-xs-6 col-md-1">Pet Type</th>
+          <th class="col-xs-6 col-md-1">Amount</th>
+          <th class="col-xs-6 col-md-1">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let food of allFood; let i = index">
+          <td class="col-xs-6 col-md-1">{{i + 1}}<td>
+          <td class="col-xs-6 col-md-2">{{food.name}}<td>
+          <td class="col-xs-6 col-md-6">{{food.taste}}</td>
+          <td class="col-xs-6 col-md-2">{{food.foodType}}</td>
+          <td class="col-xs-6 col-md-1">{{food.petType}}</td>
+          <td class="col-xs-6 col-md-1">{{food.amount}}</td>
+          <td class="col-xs-6 col-md-1">{{food.price}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <br/>
+      <button type="submit" class="btn btn-primary"  [disabled]="nothingToSend()">Submit</button>
+      <button type="button" class="btn btn-warning" (click)="redirectFoodPage()">Cancel</button>
+    </form>
+  </section>
+</div>
