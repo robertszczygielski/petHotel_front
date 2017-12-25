@@ -68,7 +68,7 @@ export class FoodCreateComponent implements OnInit {
 
   onSubmitAllFood() {
     if (!this.nothingToSend()) {
-      this.foodService.saveFood(this.allFood);
+      this.foodService.saveFood(this.allFood).subscribe();
     }
 
     this.redirectFoodPage()

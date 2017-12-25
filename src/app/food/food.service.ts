@@ -8,17 +8,17 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class FoodService {
 
-  private baseUrl = 'http://localhost:8080/';
+  private baseUrl = 'http://localhost:8080/food/';
 
   constructor(private http: Http) { }
 
   getFoodList(petType: string): Observable<Food[]> {
-    return this.http.get(this.baseUrl + 'getfood/' + petType)
+    return this.http.get(this.baseUrl + 'getfood/' + petType.toUpperCase())
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw(err.json().error || 'SE'));
   }
 
-  saveFood(foods: Food[]): Observable<Food> {
+  saveFood(foods: Food[]): Observable<Food[]> {
     return this.http.post(this.baseUrl + 'addfood', foods)
       .catch((err: any) => Observable.throw(err.json().error || 'SE'));
   }
