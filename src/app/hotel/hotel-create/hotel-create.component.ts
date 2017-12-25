@@ -4,9 +4,10 @@ import { Pet } from "../../dtos/Pet";
 import { Owner } from "../../dtos/Owner";
 import { Address } from "../../dtos/Address";
 import { HotelService } from "../hotel.service";
-import {Room} from "../../dtos/Room";
-import {PetTypes} from "../../enums/PetTypes";
-import {OwnerTypes} from "../../enums/OwnerTypes";
+import { Room } from "../../dtos/Room";
+import { PetTypes } from "../../enums/PetTypes";
+import { OwnerTypes } from "../../enums/OwnerTypes";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-hotel-create',
@@ -20,25 +21,27 @@ export class HotelCreateComponent implements OnInit {
   protected petForm: FormGroup;
   protected pets: Pet[] = [];
   protected owner: Owner;
-  protected petTypes: String[] = [];
+  protected petTypes: string[] = [];
   protected petType: string = "pet type";
   protected ownerTypes: string[] = [];
   protected ownerType: string = "Owner Type";
   protected rooms: Room[] = [];
   protected roomNumber: number = 0;
 
-  constructor(private hotelService: HotelService) { }
+  constructor(private hotelService: HotelService,
+              private router: Router) {
+  }
 
   ngOnInit() {
 
     for (var i in PetTypes) {
-      if(typeof PetTypes[i] === 'number') {
+      if (typeof PetTypes[i] === 'number') {
         this.petTypes.push(i);
       }
     }
 
     for (var i in OwnerTypes) {
-      if(typeof OwnerTypes[i] === 'number') {
+      if (typeof OwnerTypes[i] === 'number') {
         this.ownerTypes.push(i);
       }
     }
@@ -68,9 +71,9 @@ export class HotelCreateComponent implements OnInit {
   onSubmitPet() {
     if (this.petForm.valid) {
       let parts = this.petForm.controls['beginDate'].value.split('/');
-      let newBdata: Date = new Date(+parts[2],+parts[1]-1, +parts[0]);
+      let newBdata: Date = new Date(+parts[2], +parts[1] - 1, +parts[0]);
       parts = this.petForm.controls['endDate'].value.split('/');
-      let newEdata: Date = new Date(+parts[2],+parts[1]-1, +parts[0]);
+      let newEdata: Date = new Date(+parts[2], +parts[1] - 1, +parts[0]);
 
       let pet: Pet = new Pet(
         this.petForm.controls['petName'].value,
@@ -135,5 +138,9 @@ export class HotelCreateComponent implements OnInit {
   selectedAllDropdownForPet(): boolean {
     return !(this.roomNumber === 0
       && this.petType === "pet type");
+  }
+
+  redirectRoomPage() {
+    this.router.navigate(['/hotel']);
   }
 }

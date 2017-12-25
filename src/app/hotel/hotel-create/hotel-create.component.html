@@ -1,164 +1,160 @@
 <div class="container">
-  <!--<div class="row">-->
-    <!--<div class="col">-->
-      <section>
-        <form novalidate [formGroup]="ownerForm" (ngSubmit)="onSubmitOwner()">
-          <fieldset>
+  <section>
+    <form novalidate [formGroup]="ownerForm" (ngSubmit)="onSubmitOwner()">
+      <fieldset>
 
-            <div class="row">
-            <div class="col-xs-6 col-md-4">
-              <label>Customer First Name</label>
+        <div class="row">
+        <div class="col-xs-6 col-md-4">
+          <label>Customer First Name</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="firstName">
+        </div>
+
+        <div class="col-xs-6 col-md-4">
+          <label>Customer Last Name</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="lastName">
+        </div>
+
+        <div class="col-xs-6 col-md-4">
+          <label>Owner Type</label><br>
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="ownerTypeDropdown"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ownerType}}
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right">
+            <button *ngFor="let ownerType of ownerTypes" class="dropdown-item" type="button"
+                    (click)="setOwnerType(ownerType)">{{ownerType}}</button>
+          </div>
+
+        </div>
+       </div>
+
+       <div class="row">
+        <div class="col-xs-6 col-md-3">
+          <label>City</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="city">
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <label>Street</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="street">
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <label>House number</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="numberofHouse">
+        </div>
+
+        <div class="col-xs-6 col-md-1">
+          <label>Flat</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="numberofFlat">
+        </div>
+
+        <div class="col-xs-6 col-md-2">
+          <label>Zip code</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="zipCode">
+        </div>
+       </div>
+
+        <br/>
+        <form novalidate [formGroup]="petForm" (ngSubmit)="onSubmitPet()">
+
+          <div class="row">
+            <div class="col-xs-6 col-md-2">
+              <label>Pet Name</label><br>
               <input type="text"
                      class="form-control"
-                     formControlName="firstName">
+                     formControlName="petName"
+                     placeholder="Pet Name">
             </div>
 
-            <div class="col-xs-6 col-md-4">
-              <label>Customer Last Name</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="lastName">
-            </div>
 
-            <div class="col-xs-6 col-md-4">
-              <label>Owner Type</label><br>
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="ownerTypeDropdown"
+            <div class="col-xs-6 col-md-2 dropdown show">
+              <label>Pet type</label><br>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petTypeDropdown"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ownerType}}
+                {{petType}}
               </a>
 
               <div class="dropdown-menu dropdown-menu-right">
-                <button *ngFor="let ownerType of ownerTypes" class="dropdown-item" type="button"
-                        (click)="setOwnerType(ownerType)">{{ownerType}}</button>
+                <button *ngFor="let type of petTypes" class="dropdown-item" type="button"
+                        (click)="setPetType(type)">{{type}}</button>
               </div>
-
-            </div>
-           </div>
-
-           <div class="row">
-            <div class="col-xs-6 col-md-3">
-              <label>City</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="city">
             </div>
 
-            <div class="col-xs-6 col-md-3">
-              <label>Street</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="street">
+            <div class="col-xs-6 col-md-2 dropdown show">
+              <label>Room Number</label><br>
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="roomNumberDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{roomNumber}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let room of rooms" class="dropdown-item" type="button"
+                        (click)="setRoom(room)">{{room.roomNumber}}</button>
+              </div>
             </div>
 
             <div class="col-xs-6 col-md-3">
-              <label>House number</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="numberofHouse">
+              <label>Begin date:</label><br>
+              <div class="form-group">
+                <input class="form-control" formControlName="beginDate" name="date" placeholder="DD/MM/YYYY" type="text"/>
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-3">
+              <label>End date:</label><br>
+              <div class="form-group">
+                <input class="form-control" formControlName="endDate" name="date" placeholder="DD/MM/YYYY" type="text"/>
+              </div>
             </div>
 
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6 col-md-6">
+              <label class="sr-only">Comment</label><br>
+              <textarea name="petComment" cols="100%" rows="5"></textarea>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col-xs-6 col-md-1">
-              <label>Flat</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="numberofFlat">
+              <button type="submit" class="btn btn-sm btn-success"
+                      [disabled]="!(petForm.valid && selectedAllDropdownForPet())">Add
+              </button>
             </div>
+          </div>
 
-            <div class="col-xs-6 col-md-2">
-              <label>Zip code</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="zipCode">
-            </div>
-           </div>
-
-            <br/>
-            <form novalidate [formGroup]="petForm" (ngSubmit)="onSubmitPet()">
-
-              <div class="row">
-                <div class="col-xs-6 col-md-2">
-                  <label>Pet Name</label><br>
-                  <input type="text"
-                         class="form-control"
-                         formControlName="petName"
-                         placeholder="Pet Name">
-                </div>
-
-
-                <div class="col-xs-6 col-md-2 dropdown show">
-                  <label>Pet type</label><br>
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petTypeDropdown"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{petType}}
-                  </a>
-
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <button *ngFor="let type of petTypes" class="dropdown-item" type="button"
-                            (click)="setPetType(type)">{{type}}</button>
-                  </div>
-                </div>
-
-                <div class="col-xs-6 col-md-2 dropdown show">
-                  <label>Room Number</label><br>
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="roomNumberDropdown"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{roomNumber}}
-                  </a>
-
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <button *ngFor="let room of rooms" class="dropdown-item" type="button"
-                            (click)="setRoom(room)">{{room.roomNumber}}</button>
-                  </div>
-                </div>
-
-                <div class="col-xs-6 col-md-3">
-                  <label>Begin date:</label><br>
-                  <div class="form-group">
-                    <input class="form-control" formControlName="beginDate" name="date" placeholder="DD/MM/YYYY" type="text"/>
-                  </div>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                  <label>End date:</label><br>
-                  <div class="form-group">
-                    <input class="form-control" formControlName="endDate" name="date" placeholder="DD/MM/YYYY" type="text"/>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="row">
-                <div class="col-xs-6 col-md-6">
-                  <label class="sr-only">Comment</label><br>
-                  <textarea name="petComment" cols="100%" rows="5"></textarea>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-xs-6 col-md-1">
-                  <button type="submit" class="btn btn-sm btn-success"
-                          [disabled]="!(petForm.valid && selectedAllDropdownForPet())">Add
-                  </button>
-                </div>
-              </div>
-
-            </form>
-          </fieldset>
-
-          <br/>
-          <tr *ngFor="let pet of pets">
-            <td class="col-xs-6 col-md-2">{{pet.name}}<td>
-            <td class="col-xs-6 col-md-6">{{pet.comment}}</td>
-            <td class="col-xs-6 col-md-2">{{pet.petType}}</td>
-            <td class="col-xs-6 col-md-1">{{pet.roomNumber}}</td>
-            <td>
-            </td>
-          </tr>
-
-          <br/>
-          <button type="submit" class="btn btn-primary"  [disabled]="!ownerForm.valid">Submit</button>
-          <button type="button" class="btn btn-warning" (click)="redirectRoomPage()">Cancel</button>
         </form>
-      </section>
-    <!--</div>-->
-  <!--</div>-->
+      </fieldset>
+
+      <br/>
+      <tr *ngFor="let pet of pets">
+        <td class="col-xs-6 col-md-2">{{pet.name}}<td>
+        <td class="col-xs-6 col-md-6">{{pet.comment}}</td>
+        <td class="col-xs-6 col-md-2">{{pet.petType}}</td>
+        <td class="col-xs-6 col-md-1">{{pet.roomNumber}}</td>
+        <td>
+        </td>
+      </tr>
+
+      <br/>
+      <button type="submit" class="btn btn-primary"  [disabled]="!ownerForm.valid">Submit</button>
+      <button type="button" class="btn btn-warning" (click)="redirectRoomPage()">Cancel</button>
+    </form>
+  </section>
 </div>
