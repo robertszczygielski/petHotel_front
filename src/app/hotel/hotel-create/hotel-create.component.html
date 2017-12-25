@@ -126,42 +126,42 @@
 
           <div class="row">
 
-            <div class="col-xs-6 col-md-2 dropdown show">
+            <div class="col-xs-6 col-md-4 dropdown show">
               <label>Breakfast</label><br>
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petBreakfastDropdown"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{petBreakfast.name}}
+                {{petBreakfast.name}}: {{petBreakfast.taste}}
               </a>
 
               <div class="dropdown-menu dropdown-menu-right">
-                <button *ngFor="let room of rooms" class="dropdown-item" type="button"
-                        (click)="setRoom(room)">{{room.roomNumber}}</button>
+                <button *ngFor="let food of foods" class="dropdown-item" type="button"
+                        (click)="setBreakfast(food)">{{food.name}}: {{food.taste}} = {{food.price}}</button>
               </div>
             </div>
 
-            <div class="col-xs-6 col-md-2 dropdown show">
+            <div class="col-xs-6 col-md-4 dropdown show">
               <label>Dinner</label><br>
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petDinnerDropdown"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{petDinner.name}}
+                {{petDinner.name}}: {{petDinner.taste}}
               </a>
 
               <div class="dropdown-menu dropdown-menu-right">
-                <button *ngFor="let room of rooms" class="dropdown-item" type="button"
-                        (click)="setRoom(room)">{{room.roomNumber}}</button>
+                <button *ngFor="let food of foods" class="dropdown-item" type="button"
+                        (click)="setDinner(food)">{{food.name}}: {{food.taste}} = {{food.price}}</button>
               </div>
             </div>
 
-            <div class="col-xs-6 col-md-2 dropdown show">
+            <div class="col-xs-6 col-md-4 dropdown show">
               <label>Supper</label><br>
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petSupperDropdown"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{petSupper.name}}
+                {{petSupper.name}}: {{petSupper.taste}}
               </a>
 
               <div class="dropdown-menu dropdown-menu-right">
-                <button *ngFor="let room of rooms" class="dropdown-item" type="button"
-                        (click)="setRoom(room)">{{room.roomNumber}}</button>
+                <button *ngFor="let food of foods" class="dropdown-item" type="button"
+                        (click)="setSupper(food)">{{food.name}}: {{food.taste}} = {{food.price}}</button>
               </div>
             </div>
 

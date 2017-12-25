@@ -9,30 +9,37 @@ import { PetTypes } from "../../enums/PetTypes";
 import { OwnerTypes } from "../../enums/OwnerTypes";
 import { Router } from "@angular/router";
 import { Food } from "../../dtos/Food";
+import { FoodService } from "../../food/food.service";
 
 @Component({
   selector: 'app-hotel-create',
   templateUrl: './hotel-create.component.html',
   styleUrls: ['./hotel-create.component.css'],
-  providers: [HotelService]
+  providers: [HotelService, FoodService]
 })
 export class HotelCreateComponent implements OnInit {
 
   protected ownerForm: FormGroup;
   protected petForm: FormGroup;
-  protected pets: Pet[] = [];
+
+  protected pets: Pet[] =  [];
   protected owner: Owner;
+
   protected petTypes: string[] = [];
   protected petType: string = "pet type";
   protected ownerTypes: string[] = [];
   protected ownerType: string = "Owner Type";
+
   protected rooms: Room[] = [];
   protected roomNumber: number = 0;
+
   protected petBreakfast: Food;
   protected petDinner: Food;
   protected petSupper: Food;
+  protected foods: Food[] = [];
 
   constructor(private hotelService: HotelService,
+              private foodService: FoodService,
               private router: Router) {
   }
 
@@ -57,7 +64,6 @@ export class HotelCreateComponent implements OnInit {
     this.ownerForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      ownerCategory: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
       numberofHouse: new FormControl('', Validators.required),
@@ -89,7 +95,10 @@ export class HotelCreateComponent implements OnInit {
         this.petType,
         this.roomNumber,
         newBdata,
-        newEdata
+        newEdata,
+        this.petBreakfast,
+        this.petDinner,
+        this.petSupper
       );
 
       this.pets.push(pet);
@@ -125,10 +134,19 @@ export class HotelCreateComponent implements OnInit {
 
   setPetType(type: string) {
     this.petType = type;
+
     this.hotelService.getRoomsForType(type.toUpperCase()).subscribe(
       rooms => {
         this.rooms = rooms;
         this.roomNumber = 0;
+      }, err => {
+        console.log(err);
+      }
+    );
+
+    this.foodService.getFoodList(type.toUpperCase()).subscribe(
+      foods => {
+        this.foods = foods;
       }, err => {
         console.log(err);
       }
@@ -150,5 +168,17 @@ export class HotelCreateComponent implements OnInit {
 
   redirectRoomPage() {
     this.router.navigate(['/hotel']);
+  }
+
+  setBreakfast(food: Food) {
+    this.petBreakfast = food;
+  }
+
+  setDinner(food: Food) {
+    this.petDinner = food;
+  }
+
+  setSupper(food: Food) {
+    this.petSupper = food;
   }
 }
