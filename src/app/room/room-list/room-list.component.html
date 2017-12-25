@@ -20,30 +20,32 @@
 
       <section class="main">
 
-        <table class="table">
+        <table class="table table-striped table-bordered">
           <thead>
-          <tr>
-            <th>#</th>
-            <th>Number of places</th>
-            <th>Free places</th>
-            <th>pet type</th>
-            <th></th>
-          </tr>
+            <tr>
+              <th>#</th>
+              <th>Number of places</th>
+              <th>Free places</th>
+              <th>Pet type</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let room of rooms">
-            <th scope="row">{{room.roomNumber}}<th>
-            <td>{{room.numberOfPlaces}}</td>
-            <td>{{room.freePlaces}}</td>
-            <td>{{room.petType}}</td>
-            <button type="button" class="btn btn-success" (click)="editRoomPage(room)">Edit</button>
-            <button type="button" class="btn btn-danger" (click)="deleteRoom(room)">Delete</button>
-            <td>
-            </td>
-          </tr>
-
+            <tr *ngFor="let room of rooms; let i = index">
+              <th scope="row">{{room.roomNumber}}</th>
+              <td>{{room.numberOfPlaces}}</td>
+              <td>{{room.freePlaces}}</td>
+              <td>{{room.petType}}</td>
+              <td>{{room.price}}</td>
+              <td>
+                <button type="button" class="btn btn-success" (click)="editRoomPage(room)">Edit</button>
+                <button type="button" class="btn btn-danger" (click)="deleteRoom(room)">Delete</button>
+              </td>
+            </tr>
           </tbody>
         </table>
+
       </section>
     </div>
   </div>
