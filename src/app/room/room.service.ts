@@ -12,8 +12,8 @@ export class RoomService {
 
   constructor(private http: Http) { }
 
-  findAll(): Observable<Room[]> {
-    return this.http.get(this.baseUrl + 'getAllRooms')
+  findAll(page: number, size: number): Observable<Room[]> {
+    return this.http.get(this.baseUrl + 'getAllRooms?page=' + page + '&size=' + size)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error) || 'Server error');
   }
@@ -39,5 +39,11 @@ export class RoomService {
   deleteRoomByRoomNumber(roomNumber: number): Observable<boolean> {
     return this.http.delete(this.baseUrl + '/' + roomNumber)
       .catch((err: any) => Observable.throw(err.json().error) || 'Server error');
+  }
+
+  totalPageNumbers() {
+    return this.http.get(this.baseUrl + 'getNumberOfRooms')
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error) || 'Server error');
   }
 }
