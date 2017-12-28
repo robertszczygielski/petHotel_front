@@ -12,22 +12,31 @@ import { Router } from "@angular/router";
 export class RoomListComponent implements OnInit {
 
   protected rooms: Room[];
+  protected page: number = 0;
+  protected size: number = 5;
+  protected pages: Array<number>;
 
   constructor(private roomService: RoomService,
               private router: Router) { }
 
   ngOnInit() {
-    this.getAllRooms();
+    this.getAllRooms(this.page, this.size);
   }
 
-  getAllRooms() {
-    this.roomService.findAll().subscribe(
+  getAllRooms(page: number, size: number) {
+    this.roomService.findAll(page, size).subscribe(
       rooms => {
         this.rooms = rooms;
       }, err => {
         console.log(err);
       }
     );
+
+    this.roomService.totalPageNumbers().subscribe(
+      pages => {
+        this.pages = new Array(Math.ceil(pages / this.size));
+      }
+    )
   }
 
   editRoomPage(room: Room) {
@@ -40,7 +49,6 @@ export class RoomListComponent implements OnInit {
     if (room) {
       this.roomService.deleteRoomByRoomNumber(room.roomNumber).subscribe(
         res => {
-          this.getAllRooms();
           this.router.navigate(['/room']);
           console.log('remove: ' + room)
         }
@@ -50,5 +58,11 @@ export class RoomListComponent implements OnInit {
 
   redirectNewRoomPage() {
     this.router.navigate(['/room/create']);
+  }
+
+  setPage(i, event: any) {
+    event.preventDefault();
+    this.page = i;
+    this.getAllRooms(this.page, this.size);
   }
 }
