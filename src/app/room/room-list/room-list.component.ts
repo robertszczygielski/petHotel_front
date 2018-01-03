@@ -15,16 +15,18 @@ export class RoomListComponent implements OnInit {
   protected page: number = 0;
   protected size: number = 5;
   protected pages: Array<number>;
+  protected asc: boolean = false;
+  protected isSorted: string = '';
 
   constructor(private roomService: RoomService,
               private router: Router) { }
 
   ngOnInit() {
-    this.getAllRooms(this.page, this.size);
+    this.getAllRooms(this.page, this.size, this.isSorted, this.asc);
   }
 
-  getAllRooms(page: number, size: number) {
-    this.roomService.findAll(page, size).subscribe(
+  getAllRooms(page: number, size: number, name: string, asc: boolean) {
+    this.roomService.findAll(page, size, name, asc).subscribe(
       rooms => {
         this.rooms = rooms;
       }, err => {
@@ -60,9 +62,16 @@ export class RoomListComponent implements OnInit {
     this.router.navigate(['/room/create']);
   }
 
-  setPage(i, event: any) {
+  setPage(i: any, event: any) {
     event.preventDefault();
     this.page = i;
-    this.getAllRooms(this.page, this.size);
+    this.getAllRooms(this.page, this.size, this.isSorted, this.asc);
+  }
+
+  sort(isSorted: string, event: any) {
+    event.preventDefault();
+    this.isSorted = isSorted;
+    this.asc = !this.asc;
+    this.getAllRooms(this.page, this.size, this.isSorted, this.asc);
   }
 }
