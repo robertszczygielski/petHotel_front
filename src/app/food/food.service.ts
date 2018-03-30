@@ -4,6 +4,7 @@ import { Food } from "../dtos/Food";
 import { Http, Response } from "@angular/http";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
+import { FoodDetails } from "../dtos/FoodDetails";
 
 @Injectable()
 export class FoodService {
@@ -20,6 +21,12 @@ export class FoodService {
 
   saveFood(foods: Food[]): Observable<Food[]> {
     return this.http.post(this.baseUrl + 'addfood', foods)
+      .catch((err: any) => Observable.throw(err.json().error || 'SE'));
+  }
+
+  getDetails(id: number): Observable<FoodDetails> {
+    return this.http.get(this.baseUrl + 'getfood/id/' + id)
+      .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw(err.json().error || 'SE'));
   }
 }

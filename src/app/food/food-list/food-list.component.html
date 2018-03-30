@@ -42,6 +42,7 @@
             <th>Taste</th>
             <th>Amount</th>
             <th>Price</th>
+            <th></th>
 
           </tr>
           </thead>
@@ -51,8 +52,13 @@
               <td class="col-md-3">{{food.name}}</td>
               <td class="col-md-3">{{food.foodType.toString()}}</td>
               <td class="col-md-2">{{food.taste}}</td>
-              <td class="col-md-2">{{food.amount}}</td>
-              <td class="col-md-2">{{food.price}}</td>
+              <td class="col-md-1">{{food.amount}}</td>
+              <td class="col-md-1">{{food.price}}</td>
+              <td class="col-md-1">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#foodModal"
+                      (click)="openDetails(food.id)">Details
+                </button>
+              </td>
             </tr>
 
           </tbody>

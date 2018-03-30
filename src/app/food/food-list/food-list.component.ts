@@ -3,6 +3,9 @@ import { FoodService } from "../food.service";
 import { Router } from "@angular/router";
 import { PetTypes } from "../../enums/PetTypes";
 import { Food } from "../../dtos/Food";
+import { FoodDetails } from "../../dtos/FoodDetails";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { FoodDetailsComponent } from "../food-details/food-details.component";
 
 @Component({
   selector: 'app-food-list',
@@ -15,9 +18,11 @@ export class FoodListComponent implements OnInit {
   protected petType: string = 'Mammal';
   protected petTypes: string[] = [];
   protected foodList: Food[];
+  // protected foodDetails: FoodDetails;
 
   constructor(private foodService: FoodService,
-              private router: Router) { }
+              private router: Router,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     for(var i in PetTypes) {
@@ -48,4 +53,9 @@ export class FoodListComponent implements OnInit {
     this.router.navigate(['/food/add']);
   }
 
+  openDetails(id: number) {
+    const modalRef = this.modalService.open(FoodDetailsComponent);
+    console.log("my Id:" + id);
+    modalRef.componentInstance.foodId = id;
+  }
 }

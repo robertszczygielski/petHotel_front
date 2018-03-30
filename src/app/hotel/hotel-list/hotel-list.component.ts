@@ -14,8 +14,8 @@ import { Router } from "@angular/router";
 })
 export class HotelListComponent implements OnInit {
 
-  private baseOwnerInfos: BasicOwnerInfo[];
-  private ownerPets: Pet[];
+  protected baseOwnerInfos: BasicOwnerInfo[];
+  protected ownerPets: Pet[];
 
   constructor(private hotelService: HotelService,
               private router: Router) { }

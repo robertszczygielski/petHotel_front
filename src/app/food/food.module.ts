@@ -5,6 +5,7 @@ import { FoodRoutingModule } from './food-routing.module';
 import { FoodCreateComponent } from './food-create/food-create.component';
 import { FoodListComponent } from './food-list/food-list.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FoodDetailsComponent } from './food-details/food-details.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
   declarations: [
     FoodCreateComponent,
     FoodListComponent
+  ],
+  entryComponents: [
+    FoodDetailsComponent
   ]
 })
 export class FoodModule { }
