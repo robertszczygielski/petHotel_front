@@ -1,18 +1,11 @@
-<div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
-    <h4 class="modal-title">Modal Header</h4>
-  </div>
-  <div class="modal-body">
-    name:<p>{{foodDetails.food.name}}</p>
-    type:<p>{{foodDetails.food.foodType}}</p>
-    taste:<p>{{foodDetails.food.taste}}</p>
-    price:<p>{{foodDetails.food.price}}</p>
-    food amount:<p>{{foodDetails.food.amount}}</p>
-    delivery amount:<p>{{foodDetails.deliveryAmount}}</p>
-    date<p>{{foodDetails.deliveryDate | date: 'dd/MM/yyyy'}}</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  </div>
+<h1 mat-dialog-title>{{foodDetails.food.name}}</h1>
+<div mat-dialog-content>
+  Taste: <p>{{foodDetails.food.taste}}</p>
+  Food Amount: <p>{{foodDetails.food.amount}}</p>
+  Food Price: <p>{{foodDetails.food.price}}</p>
+  Delivery Amount: <p>{{foodDetails.deliveryAmount}}</p>
+  Delivery Date: <p>{{foodDetails.deliveryDate | date: 'dd/MM/yyyy'}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
 </div>

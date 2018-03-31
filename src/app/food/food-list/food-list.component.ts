@@ -6,6 +6,7 @@ import { Food } from "../../dtos/Food";
 import { FoodDetails } from "../../dtos/FoodDetails";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { FoodDetailsComponent } from "../food-details/food-details.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-food-list',
@@ -22,7 +23,7 @@ export class FoodListComponent implements OnInit {
 
   constructor(private foodService: FoodService,
               private router: Router,
-              private modalService: NgbModal) { }
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     for(var i in PetTypes) {
@@ -54,8 +55,13 @@ export class FoodListComponent implements OnInit {
   }
 
   openDetails(id: number) {
-    const modalRef = this.modalService.open(FoodDetailsComponent);
-    console.log("my Id:" + id);
-    modalRef.componentInstance.foodId = id;
+    const modalRef = this.dialog.open(FoodDetailsComponent, {
+      width: '250px',
+      data: { id: id }
+    });
+
+    modalRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed' + result);
+    });
   }
 }

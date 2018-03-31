@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FoodDetails } from "../../dtos/FoodDetails";
 import { FoodService } from "../food.service";
+import { MAT_DIALOG_DATA, MatCardModule, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-food-details',
@@ -14,22 +15,26 @@ export class FoodDetailsComponent implements OnInit {
 
   @Input() foodId: number;
 
-  constructor(private foodService: FoodService) { }
+  constructor( public dialogRef: MatDialogRef<FoodDetailsComponent>,
+               @Inject(MAT_DIALOG_DATA) public data: any,
+               private foodService: FoodService) { }
 
   ngOnInit() {
     this.showDetails();
   }
 
   showDetails() {
-    console.log("ng on: " + this.foodId);
-    this.foodService.getDetails(this.foodId).subscribe(
+    console.log("ng on: " + this.data.id);
+    this.foodService.getDetails(this.data.id).subscribe(
       foodDetails => {
         this.foodDetails = foodDetails;
       }, err => {
         console.log(err);
       }
     );
-    console.log("ng on: " + this.foodDetails);
+  }
 
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
