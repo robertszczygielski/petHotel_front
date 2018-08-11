@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RoomService } from "../room.service";
 import { Room } from "../../dtos/Room";
 import { Router } from "@angular/router";
+import { PetTypes } from "../../enums/PetTypes";
+import { Regnum} from "../../enums/Regnum";
 
 @Component({
   selector: 'app-room-list',
@@ -17,16 +19,24 @@ export class RoomListComponent implements OnInit {
   protected pages: Array<number>;
   protected asc: boolean = false;
   protected isSorted: string = '';
+  protected regna: string = 'pet';
+  protected regnum: string[] = [];
 
   constructor(private roomService: RoomService,
               private router: Router) { }
 
   ngOnInit() {
-    this.getAllRooms(this.page, this.size, this.isSorted, this.asc);
+    for(var i in Regnum) {
+      if (typeof Regnum[i] === 'number') {
+        this.regnum.push(i);
+      }
+    }
+
+    this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc);
   }
 
-  getAllRooms(page: number, size: number, name: string, asc: boolean) {
-    this.roomService.findAll(page, size, name, asc).subscribe(
+  getAllRooms(regna: string, page: number, size: number, name: string, asc: boolean) {
+    this.roomService.findAll(regna, page, size, name, asc).subscribe(
       rooms => {
         this.rooms = rooms;
       }, err => {
@@ -65,13 +75,18 @@ export class RoomListComponent implements OnInit {
   setPage(i: any, event: any) {
     event.preventDefault();
     this.page = i;
-    this.getAllRooms(this.page, this.size, this.isSorted, this.asc);
+    this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc);
   }
 
   sort(isSorted: string, event: any) {
     event.preventDefault();
     this.isSorted = isSorted;
     this.asc = !this.asc;
-    this.getAllRooms(this.page, this.size, this.isSorted, this.asc);
+    this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc);
+  }
+
+  setRegna(regna): void {
+    this.regna = regna;
+    this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc)
   }
 }
