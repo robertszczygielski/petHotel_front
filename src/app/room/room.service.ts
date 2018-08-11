@@ -12,14 +12,14 @@ export class RoomService {
 
   constructor(private http: Http) { }
 
-  findAll(page: number, size: number, name: string, asc: boolean): Observable<Room[]> {
+  findAll(regna: string, page: number, size: number, name: string, asc: boolean): Observable<Room[]> {
     let sortByName: string = '';
     if (name !== '') {
       sortByName = "&sort=" + name;
       sortByName += asc ? ",desc" : ",asc";
     }
 
-    return this.http.get(this.baseUrl + 'getAllRooms?page=' + page + '&size=' + size + sortByName)
+    return this.http.get(this.baseUrl + 'getAllRooms/'+ regna +'?page=' + page + '&size=' + size + sortByName)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error) || 'Server error');
   }

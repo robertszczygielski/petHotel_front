@@ -9,6 +9,19 @@
             </div>
             <div class="col-md-6">
 
+            <div class="col-md-6 dropdown show">
+              <label>Pet type</label>
+              <a class="btn btn-secondary dropdown-menu-left" href="#" role="button" id="petTypeDropdown"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{regna}}
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <button *ngFor="let regna of regnum" class="dropdown-item" type="button"
+                        (click)="setRegna(regna)">{{regna}}</button>
+              </div>
+            </div>
+
             </div>
             <div class="col-md-2">
               <button type="button" class="btn btn-primary" (click)="redirectNewRoomPage()">New Room</button>
