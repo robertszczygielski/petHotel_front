@@ -21,9 +21,24 @@
               </div>
 
               <div class="col-xs-6 col-md-3 dropdown show">
-                <label>Pet Type in room</label><br>
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petTypeDropdown"
+                <label>Room type (pet regna)</label><br>
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="regnaDropdown"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{regna}}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                  <button *ngFor="let regna of regnum" class="dropdown-item" type="button"
+                          (click)="setRegna(regna)">{{regna}}</button>
+                </div>
+              </div>
+
+              <div class="col-xs-6 col-md-3 dropdown show">
+                <label>Pet Type in room</label><br>
+                <a *ngIf="!isPet()" class="btn btn-default disabled">Flover</a>
+
+                <a *ngIf="isPet()" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="petTypeDropdown"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                   {{petType}}
                 </a>
 

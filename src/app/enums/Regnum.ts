@@ -1,3 +1,4 @@
 export enum Regnum {
-  "pet", "plant"
+  PET = "pet",
+  PLANT = "plant"
 }

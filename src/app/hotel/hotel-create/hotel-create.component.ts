@@ -4,12 +4,12 @@ import { Pet } from "../../dtos/Pet";
 import { Owner } from "../../dtos/Owner";
 import { Address } from "../../dtos/Address";
 import { HotelService } from "../hotel.service";
-import { Room } from "../../dtos/Room";
 import { PetTypes } from "../../enums/PetTypes";
 import { OwnerTypes } from "../../enums/OwnerTypes";
 import { Router } from "@angular/router";
 import { Food } from "../../dtos/Food";
 import { FoodService } from "../../food/food.service";
+import { Room } from "../../dtos/room/Room";
 
 @Component({
   selector: 'app-hotel-create',
