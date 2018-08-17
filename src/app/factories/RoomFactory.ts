@@ -23,11 +23,19 @@ export class RoomFactory {
   }
 
   private static buildPlantRoom(roomForm: FormGroup): PlantRoom {
+    let shelves: Shelf[] = [];
+
+    for (let i=0; i<roomForm.controls['numberOfPlaces'].value; ++i) {
+      shelves.push(new Shelf(i+1, true));
+    }
+
+    console.log("shelves: " + shelves);
+
     return new PlantRoom(
       roomForm.controls['roomNumber'].value,
       roomForm.controls['numberOfPlaces'].value,
       roomForm.controls['numberOfPlaces'].value,
-      [new Shelf(1, true)],
+      shelves,
       roomForm.controls['temperature'].value,
       roomForm.controls['price'].value
     )

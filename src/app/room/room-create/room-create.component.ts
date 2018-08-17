@@ -65,7 +65,8 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
     return new FormGroup({
       roomNumber: new FormControl('', Validators.required),
       numberOfPlaces: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.required)
+      price: new FormControl('', Validators.required),
+      temperature: new FormControl('')
     });
   }
 
