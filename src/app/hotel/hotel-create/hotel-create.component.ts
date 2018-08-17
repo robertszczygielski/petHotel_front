@@ -26,7 +26,7 @@ export class HotelCreateComponent implements OnInit {
   protected owner: Owner;
 
   protected petTypes: string[] = [];
-  protected petType: string = "pet type";
+  protected petType: string = "isPetAnimal type";
   protected ownerTypes: string[] = [];
   protected ownerType: string = "Owner Type";
 
@@ -50,9 +50,7 @@ export class HotelCreateComponent implements OnInit {
     this.petSupper = tmpFood;
 
     for (var i in PetTypes) {
-      if (typeof PetTypes[i] === 'number') {
-        this.petTypes.push(i);
-      }
+      this.petTypes.push(i.toLocaleLowerCase());
     }
 
     for (var i in OwnerTypes) {
@@ -163,7 +161,7 @@ export class HotelCreateComponent implements OnInit {
 
   selectedAllDropdownForPet(): boolean {
     return !(this.roomNumber === 0
-      && this.petType === "pet type");
+      && this.petType === "isPetAnimal type");
   }
 
   redirectRoomPage() {

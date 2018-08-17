@@ -27,9 +27,7 @@ export class FoodListComponent implements OnInit {
 
   ngOnInit() {
     for(var i in PetTypes) {
-      if (typeof PetTypes[i] === 'number') {
-        this.petTypes.push(i);
-      }
+      this.petTypes.push(i.toLocaleLowerCase());
     }
 
     this.setFoodListFotPetType();

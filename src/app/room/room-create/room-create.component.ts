@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RoomService } from "../room.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Room } from "../../dtos/room/Room";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { PetTypes } from "../../enums/PetTypes";
-import { Regnum} from "../../enums/Regnum";
+import { Regnum } from "../../enums/Regnum";
 import { PetRoom } from "../../dtos/room/PetRoom";
+import { RoomFactory } from "../../factories/RoomFactory";
+import { Room } from "../../dtos/room/Room";
 
 @Component({
   selector: 'app-room-create',
@@ -19,17 +20,16 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
   protected roomForm: FormGroup;
   protected sub: any;
   protected petTypes: string[] = [];
-  protected petType: string = 'pet type';
+  protected petType: string = 'petAnimal type';
   protected regnum: string[] = [];
   protected regna: string = 'pet';
-  protected pet: boolean = true;
+  protected isPetAnimal: boolean = true;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private roomService: RoomService) { }
 
   ngOnInit() {
-
     this.preparePetType();
     this.prepateRegnum();
 
@@ -37,28 +37,10 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
       this.roomNumber = params['roomNumber']
     });
 
-    this.roomForm = new FormGroup({
-      roomNumber: new FormControl('', Validators.required),
-      numberOfPlaces: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.required)
-    });
+    this.roomForm = this.prepareRoomForm();
 
     if (this.roomNumber) {
-      this.roomService.findByRoomNumber(this.roomNumber).subscribe(
-        room => {
-          this.roomNumber = room.roomNumber;
-          this.roomForm.patchValue({
-            roomNumber: room.roomNumber,
-            numberOfPlaces: room.numberOfPlaces,
-            price: room.price,
-          });
-          if (room instanceof PetRoom) {
-            this.petType = room.petType;
-          }
-        }, err => {
-          console.log(err);
-        }
-      );
+      this.getRoomFromServerSide();
     }
   }
 
@@ -69,61 +51,98 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.roomForm.valid) {
       if (this.roomNumber) {
-      let petRoom: PetRoom = new PetRoom(
-        this.roomNumber,
-        this.roomForm.controls['numberOfPlaces'].value,
-        this.roomForm.controls['numberOfPlaces'].value,
-        this.petType,
-        this.roomForm.controls['price'].value);
-      this.roomService.updateRoom(petRoom).subscribe();
+        this.updateRoom()
       } else {
-        let petRoom: PetRoom = new PetRoom(
-          this.roomForm.controls['roomNumber'].value,
-          this.roomForm.controls['numberOfPlaces'].value,
-          this.roomForm.controls['numberOfPlaces'].value,
-          this.petType,
-          this.roomForm.controls['price'].value);
-        this.roomService.saveRoom(petRoom).subscribe();
+        this.saveRoom()
       }
-
     }
 
     this.roomForm.reset();
     this.redirectRoomPage();
   }
 
-  redirectRoomPage() {
+  private prepareRoomForm(): FormGroup {
+    return new FormGroup({
+      roomNumber: new FormControl('', Validators.required),
+      numberOfPlaces: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required)
+    });
+  }
+
+  private prepareRoomFormForEdit(room: Room) {
+    this.roomNumber = room.roomNumber;
+
+    this.roomForm.controls['numberOfPlaces'].setValue(room.numberOfPlaces);
+    this.roomForm.controls['price'].setValue(room.price);
+    this.roomForm.controls['roomNumber'].setValue(this.roomNumber);
+
+    if (this.isPetRoomAnimal(room)) {
+      this.petType = (<PetRoom>room).petType;
+    }
+  }
+
+  private getRoomFromServerSide() {
+    this.roomService.findByRoomNumber(this.roomNumber).subscribe(
+      room => {
+        this.prepareRoomFormForEdit(room);
+      }, err => {
+        console.log(err);
+      }
+    )
+  }
+
+  private updateRoom() {
+    this.roomService
+      .updateRoom(
+        RoomFactory.buildRoom(this.roomForm, this.petType, this.isPetAnimal))
+      .subscribe();
+  }
+
+  private saveRoom() {
+    this.roomService
+      .saveRoom(
+        RoomFactory.buildRoom(this.roomForm, this.petType, this.isPetAnimal))
+      .subscribe();
+  }
+
+  public redirectRoomPage() {
     this.router.navigate(['/room']);
   }
 
-  setPetType(type: string) {
+  public setPetType(type: string) {
     this.petType = type;
   }
 
-  petTypeIsValid() {
-    return this.petType === "pet type";
+  public petTypeIsValid() {
+    return this.petType === "isPetAnimal type";
   }
 
-  setRegna(regna: string){
+  public setRegna(regna: string){
     this.regna = regna;
-    this.pet = this.regna.toLocaleLowerCase() === Regnum.PET.toString().toLocaleLowerCase();
+    this.isPetAnimal = this.regna.toLocaleLowerCase() === Regnum.PET.toString().toLocaleLowerCase();
+  }
+
+  public isNewRoom(): boolean {
+    return this.roomNumber === undefined;
   }
 
   private preparePetType(): void {
     for (var i in PetTypes) {
-      if(typeof PetTypes[i] === 'number') {
-        this.petTypes.push(i);
-      }
+      this.petTypes.push(i.toLocaleLowerCase());
     }
   }
 
   private prepateRegnum(): void {
     for (var i in Regnum) {
-        this.regnum.push(i.toLocaleLowerCase());
+      this.regnum.push(i.toLocaleLowerCase());
     }
   }
 
-  isPet(): boolean {
-    return this.pet;
+  public isPet(): boolean {
+    return this.isPetAnimal;
+  }
+
+  private isPetRoomAnimal(room: Room): boolean {
+    return (<PetRoom>room).petType !== undefined;
   }
 }
