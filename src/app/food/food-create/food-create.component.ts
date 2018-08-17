@@ -25,28 +25,9 @@ export class FoodCreateComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.prepareTypesFromEnum();
 
-    for (var i in PetTypes) {
-      if (typeof PetTypes[i] === 'number') {
-        this.petTypes.push(i);
-      }
-    }
-
-    for (var i in FoodTypes) {
-      if (typeof FoodTypes[i] === 'number') {
-        this.foodTypes.push(i);
-      }
-    }
-
-    this.foodForm = new FormGroup({
-      foodName: new FormControl('', Validators.required),
-      foodTaste: new FormControl('', Validators.required),
-      foodType: new FormControl(''),
-      petType: new FormControl(''),
-      amount: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.required)
-    });
-
+    this.foodForm = this.prepareFoodForm();
   }
 
   onSubmitFood() {
@@ -66,7 +47,7 @@ export class FoodCreateComponent implements OnInit {
     }
   }
 
-  onSubmitAllFood() {
+  public onSubmitAllFood() {
     if (!this.nothingToSend()) {
       this.foodService.saveFood(this.allFood).subscribe();
     }
@@ -74,23 +55,44 @@ export class FoodCreateComponent implements OnInit {
     this.redirectFoodPage()
   }
 
-  redirectFoodPage() {
-    this.router.navigate(['/food']);
-  }
-
-  setFoodType(foodType: string) {
+  public setFoodType(foodType: string) {
     this.foodType = foodType;
   }
 
-  setPetType(petType: string) {
+  public setPetType(petType: string) {
     this.petType = petType;
   }
 
-  selectedAllDropdownForFood(): boolean {
+  public selectedAllDropdownForFood(): boolean {
     return this.petType !== 'Pet type' && this.foodType !== 'Food type';
   }
 
-  nothingToSend(): boolean {
+  public nothingToSend(): boolean {
     return this.allFood.length === 0;
+  }
+
+  private redirectFoodPage() {
+    this.router.navigate(['/food']);
+  }
+
+  private prepareTypesFromEnum() {
+    for (var i in PetTypes) {
+      this.petTypes.push(i.toLocaleLowerCase());
+    }
+
+    for (var i in FoodTypes) {
+      this.foodTypes.push(i.toLocaleLowerCase());
+    }
+  }
+
+  private prepareFoodForm(): FormGroup {
+    return new FormGroup({
+      foodName: new FormControl('', Validators.required),
+      foodTaste: new FormControl('', Validators.required),
+      foodType: new FormControl(''),
+      petType: new FormControl(''),
+      amount: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required)
+    });
   }
 }

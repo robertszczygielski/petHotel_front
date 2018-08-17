@@ -1,3 +1,4 @@
 export enum FoodTypes {
-  'CAN', 'DRY'
+  CAN = 'CAN',
+  DRY = 'DRY'
 }

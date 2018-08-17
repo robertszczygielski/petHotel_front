@@ -1,3 +1,5 @@
 export enum PetTypes {
-  "Fish", "Bird", "Mammal"
+  FISH = 'Fish',
+  BIRD = 'Bird',
+  MAMMAL = 'Mammal'
 }

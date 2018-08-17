@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from "../room.service";
-import { Room } from "../../dtos/Room";
+import { Room } from "../../dtos/room/Room";
 import { Router } from "@angular/router";
-import { PetTypes } from "../../enums/PetTypes";
 import { Regnum} from "../../enums/Regnum";
 
 @Component({
@@ -27,9 +26,7 @@ export class RoomListComponent implements OnInit {
 
   ngOnInit() {
     for(var i in Regnum) {
-      if (typeof Regnum[i] === 'number') {
-        this.regnum.push(i);
-      }
+      this.regnum.push(i.toLocaleLowerCase());
     }
 
     this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc);

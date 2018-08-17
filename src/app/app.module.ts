@@ -12,11 +12,13 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FoodDetailsComponent } from "./food/food-details/food-details.component";
 import { MatButtonModule, MatInputModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShelfCreateComponent } from './shelf/shelf-create/shelf-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FoodDetailsComponent
+    FoodDetailsComponent,
+    ShelfCreateComponent
   ],
   imports: [
     BrowserModule,
