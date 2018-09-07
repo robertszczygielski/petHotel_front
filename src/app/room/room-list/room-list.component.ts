@@ -41,7 +41,7 @@ export class RoomListComponent implements OnInit {
       }
     );
 
-    this.roomService.totalPageNumbers().subscribe(
+    this.roomService.totalPageNumbers(this.regna).subscribe(
       pages => {
         this.pages = new Array(Math.ceil(pages / this.size));
       }

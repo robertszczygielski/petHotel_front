@@ -47,8 +47,8 @@ export class RoomService {
       .catch((err: any) => Observable.throw(err.json().error) || 'Server error');
   }
 
-  totalPageNumbers() {
-    return this.http.get(this.baseUrl + 'getNumberOfRooms')
+  totalPageNumbers(regna: string) {
+    return this.http.get(this.baseUrl + 'getNumberOfRooms/' + regna)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error) || 'Server error');
   }
