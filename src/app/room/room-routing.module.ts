@@ -6,7 +6,7 @@ import {RoomCreateComponent} from "./room-create/room-create.component";
 const routes: Routes = [
   { path: 'room', component: RoomListComponent },
   { path: 'room/create', component: RoomCreateComponent },
-  { path: 'room/edit/:roomNumber', component: RoomCreateComponent }
+  { path: 'room/edit/:roomAnimalNumber', component: RoomCreateComponent }
 ];
 
 @NgModule({

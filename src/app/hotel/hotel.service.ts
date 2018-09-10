@@ -4,7 +4,7 @@ import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
-import { Pet } from "../dtos/Pet";
+import { Pet } from "../dtos/pet/Pet";
 import { Owner } from "../dtos/Owner";
 
 @Injectable()
@@ -38,6 +38,12 @@ export class HotelService {
 
   getRoomsForType(type: string) {
     return this.http.get(this.baseUrl + 'hotel/getAllRoomsByType/' + type)
+      .map((res: Response) => res.json())
+      .catch((err: any) => Observable.throw(err.json().error || "room for SE"));
+  }
+
+  getRoomsForTemperature(minTemp: number, maxTemp: number) {
+    return this.http.get(this.baseUrl + 'hotel/tempRange/m/' + minTemp + '/' + maxTemp)
       .map((res: Response) => res.json())
       .catch((err: any) => Observable.throw(err.json().error || "room for SE"));
   }

@@ -3,41 +3,44 @@ import { FormGroup } from "@angular/forms";
 import { Room } from "../dtos/room/Room";
 import { PlantRoom } from "../dtos/room/PlantRoom";
 import { Shelf } from "../dtos/Shelf";
+import { RoomFormUtil } from "../utils/RoomFormUtil";
 
 export class RoomFactory {
 
-  static buildRoom(roomForm: FormGroup, petType: string, isPet: boolean): Room {
-    return isPet
-      ? this.buildPetRoom(roomForm, petType)
-      : this.buildPlantRoom(roomForm);
+  static buildRoom(roomFormUtil: RoomFormUtil): Room {
+    return roomFormUtil.isPet
+      ? this.buildPetRoom(roomFormUtil)
+      : this.buildPlantRoom(roomFormUtil);
   }
 
-  private static buildPetRoom(roomForm: FormGroup, petType: string): PetRoom {
+  private static buildPetRoom(roomFormUtil: RoomFormUtil): PetRoom {
+    let form = roomFormUtil.roomForm;
     return new PetRoom(
-      roomForm.controls['roomNumber'].value,
-      roomForm.controls['numberOfPlaces'].value,
-      roomForm.controls['numberOfPlaces'].value,
-      petType,
-      roomForm.controls['price'].value
+      form.controls['roomNumber'].value,
+      form.controls['numberOfPlaces'].value,
+      form.controls['numberOfPlaces'].value,
+      roomFormUtil.petType,
+      form.controls['price'].value
     );
   }
 
-  private static buildPlantRoom(roomForm: FormGroup): PlantRoom {
+  private static buildPlantRoom(roomFormUtil: RoomFormUtil): PlantRoom {
     let shelves: Shelf[] = [];
+    let form = roomFormUtil.roomForm;
 
-    for (let i=0; i<roomForm.controls['numberOfPlaces'].value; ++i) {
-      shelves.push(new Shelf(i+1, true));
+    for (let i=0; i<roomFormUtil.roomForm.controls['numberOfPlaces'].value; ++i) {
+      shelves.push(new Shelf(i+1, true, roomFormUtil.insolation));
     }
 
     console.log("shelves: " + shelves);
 
     return new PlantRoom(
-      roomForm.controls['roomNumber'].value,
-      roomForm.controls['numberOfPlaces'].value,
-      roomForm.controls['numberOfPlaces'].value,
+      form.controls['roomNumber'].value,
+      form.controls['numberOfPlaces'].value,
+      form.controls['numberOfPlaces'].value,
       shelves,
-      roomForm.controls['temperature'].value,
-      roomForm.controls['price'].value
+      form.controls['temperature'].value,
+      form.controls['price'].value
     )
   }
 
