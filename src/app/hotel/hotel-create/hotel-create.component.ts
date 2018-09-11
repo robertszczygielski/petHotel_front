@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Pet } from "../../dtos/Pet";
+import { Pet } from "../../dtos/pet/Pet";
 import { Owner } from "../../dtos/Owner";
 import { Address } from "../../dtos/Address";
 import { HotelService } from "../hotel.service";
@@ -10,6 +10,8 @@ import { Router } from "@angular/router";
 import { Food } from "../../dtos/Food";
 import { FoodService } from "../../food/food.service";
 import { Room } from "../../dtos/room/Room";
+import { Animal } from "../../dtos/pet/Animal";
+import { Plant } from "../../dtos/pet/Plant";
 
 @Component({
   selector: 'app-hotel-create',
@@ -21,6 +23,7 @@ export class HotelCreateComponent implements OnInit {
 
   protected ownerForm: FormGroup;
   protected petForm: FormGroup;
+  protected plantForm: FormGroup;
 
   protected pets: Pet[] =  [];
   protected owner: Owner;
@@ -30,8 +33,12 @@ export class HotelCreateComponent implements OnInit {
   protected ownerTypes: string[] = [];
   protected ownerType: string = "Owner Type";
 
-  protected rooms: Room[] = [];
-  protected roomNumber: number = 0;
+  protected animalRooms: Room[] = [];
+  protected plantRooms: Room[] = [];
+  protected roomAnimalNumber: number = 0;
+  protected roomPlantNumber: number = 0;
+  protected shelfNumber: number = 0;
+  protected planInsolation: string;
 
   protected petBreakfast: Food;
   protected petDinner: Food;
@@ -78,20 +85,30 @@ export class HotelCreateComponent implements OnInit {
       endDate: new FormControl('')
     });
 
+    this.plantForm = new FormGroup({
+      plantName: new FormControl('', Validators.required),
+      plantComment: new FormControl('', Validators.required),
+      shelf: new FormControl(''),
+      toWater: new FormControl(''),
+      minTemperature: new FormControl('', Validators.required),
+      maxTemperature: new FormControl('', Validators.required),
+      plantInsolation: new FormControl('')
+    })
+
   }
 
-  onSubmitPet() {
+  protected onSubmitPet() {
     if (this.petForm.valid) {
       let parts = this.petForm.controls['beginDate'].value.split('/');
       let newBdata: Date = new Date(+parts[2], +parts[1] - 1, +parts[0]);
       parts = this.petForm.controls['endDate'].value.split('/');
       let newEdata: Date = new Date(+parts[2], +parts[1] - 1, +parts[0]);
 
-      let pet: Pet = new Pet(
+      let pet: Pet = new Animal(
         this.petForm.controls['petName'].value,
         this.petForm.controls['petComment'].value,
         this.petType,
-        this.roomNumber,
+        this.roomAnimalNumber,
         newBdata,
         newEdata,
         this.petBreakfast,
@@ -105,7 +122,36 @@ export class HotelCreateComponent implements OnInit {
     }
   }
 
-  onSubmitOwner() {
+  protected onSubmitPlant() {
+    if (this.plantForm.valid) {
+      let parts = this.petForm.controls['beginDate'].value.split('/');
+      let newBdata: Date = new Date(+parts[2], +parts[1] - 1, +parts[0]);
+      parts = this.petForm.controls['endDate'].value.split('/');
+      let newEdata: Date = new Date(+parts[2], +parts[1] - 1, +parts[0]);
+
+
+      let pet: Pet = new Plant(
+        this.plantForm.controls['plantName'].value,
+        this.plantForm.controls['plantComment'].value,
+        this.roomAnimalNumber,
+        this.shelfNumber,
+        newBdata,
+        newEdata,
+        this.plantForm.controls['toWater'].value,
+        this.plantForm.controls['minTemperature'].value,
+        this.plantForm.controls['maxTemperature'].value,
+        this.planInsolation
+      );
+
+      console.log(pet);
+
+      this.pets.push(pet);
+
+      this.petForm.reset();
+    }
+  }
+
+  protected onSubmitOwner() {
     if (this.ownerForm.valid) {
       let address: Address = new Address(
         this.ownerForm.controls['city'].value,
@@ -130,13 +176,13 @@ export class HotelCreateComponent implements OnInit {
     }
   }
 
-  setPetType(type: string) {
+  protected setPetType(type: string) {
     this.petType = type;
 
     this.hotelService.getRoomsForType(type.toUpperCase()).subscribe(
       rooms => {
-        this.rooms = rooms;
-        this.roomNumber = 0;
+        this.animalRooms = rooms;
+        this.roomAnimalNumber = 0;
       }, err => {
         console.log(err);
       }
@@ -151,32 +197,62 @@ export class HotelCreateComponent implements OnInit {
     );
   }
 
-  setRoom(room: Room) {
-    this.roomNumber = room.roomNumber;
+  protected setRoom(room: Room) {
+    this.roomAnimalNumber = room.roomNumber;
   }
 
-  setOwnerType(ownerType: string) {
+  protected setOwnerType(ownerType: string) {
     this.ownerType = ownerType;
   }
 
-  selectedAllDropdownForPet(): boolean {
-    return !(this.roomNumber === 0
+  protected selectedAllDropdownForPet(): boolean {
+    return !(this.roomAnimalNumber === 0
       && this.petType === "isPetAnimal type");
   }
 
-  redirectRoomPage() {
+  protected redirectRoomPage() {
     this.router.navigate(['/hotel']);
   }
 
-  setBreakfast(food: Food) {
+  protected setBreakfast(food: Food) {
     this.petBreakfast = food;
   }
 
-  setDinner(food: Food) {
+  protected setDinner(food: Food) {
     this.petDinner = food;
   }
 
-  setSupper(food: Food) {
+  protected setSupper(food: Food) {
     this.petSupper = food;
+  }
+
+  protected minTempChange() {
+    if (this.plantForm.controls['maxTemperature'].valid) {
+      this.hotelService.getRoomsForTemperature(
+        this.plantForm.controls['maxTemperature'].value,
+        this.plantForm.controls['maxTemperature'].value).subscribe(
+        rooms => {
+          this.plantRooms = rooms;
+          this.roomPlantNumber = 0;
+        }, err => {
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  protected maxTempChange() {
+    if (this.plantForm.controls['minTemperature'].valid) {
+      this.hotelService.getRoomsForTemperature(
+        this.plantForm.controls['minTemperature'].value,
+        this.plantForm.controls['maxTemperature'].value).subscribe(
+        rooms => {
+          this.plantRooms = rooms;
+          this.roomPlantNumber = 0;
+        }, err => {
+          console.log(err);
+        }
+      );
+    }
   }
 }

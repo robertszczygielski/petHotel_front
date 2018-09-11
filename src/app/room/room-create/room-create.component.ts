@@ -7,6 +7,8 @@ import { Regnum } from "../../enums/Regnum";
 import { PetRoom } from "../../dtos/room/PetRoom";
 import { RoomFactory } from "../../factories/RoomFactory";
 import { Room } from "../../dtos/room/Room";
+import { PlantInsolationType } from "../../enums/PlantInsolationType";
+import { RoomFormUtil } from "../../utils/RoomFormUtil";
 
 @Component({
   selector: 'app-room-create',
@@ -24,6 +26,8 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
   protected regnum: string[] = [];
   protected regna: string = 'pet';
   protected isPetAnimal: boolean = true;
+  protected insolations: string[] = [];
+  protected insolation: string = 'medium';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -32,6 +36,7 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.preparePetType();
     this.prepateRegnum();
+    this.preparePlantInsolation();
 
     this.sub = this.route.params.subscribe(params => {
       this.roomNumber = params['roomNumber']
@@ -50,10 +55,11 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.roomForm.valid) {
+      let roomFormUtil = new RoomFormUtil(this.roomForm, this.petType, this.isPetAnimal, this.insolation.toLocaleUpperCase());
       if (this.roomNumber) {
-        this.updateRoom()
+        this.updateRoom(roomFormUtil)
       } else {
-        this.saveRoom()
+        this.saveRoom(roomFormUtil)
       }
     }
 
@@ -92,17 +98,17 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
     )
   }
 
-  private updateRoom() {
+  private updateRoom(roomFormUtil: RoomFormUtil) {
     this.roomService
       .updateRoom(
-        RoomFactory.buildRoom(this.roomForm, this.petType, this.isPetAnimal))
+        RoomFactory.buildRoom(roomFormUtil))
       .subscribe();
   }
 
-  private saveRoom() {
+  private saveRoom(roomFormUtil: RoomFormUtil) {
     this.roomService
       .saveRoom(
-        RoomFactory.buildRoom(this.roomForm, this.petType, this.isPetAnimal))
+        RoomFactory.buildRoom(roomFormUtil))
       .subscribe();
   }
 
@@ -145,5 +151,15 @@ export class RoomCreateComponent implements OnInit, OnDestroy {
 
   private isPetRoomAnimal(room: Room): boolean {
     return (<PetRoom>room).petType !== undefined;
+  }
+
+  public setInsolation(insolation: string) {
+        this.insolation = insolation;
+  }
+
+  private preparePlantInsolation() {
+    for(var i in PlantInsolationType) {
+      this.insolations.push(i.toLocaleLowerCase());
+    }
   }
 }

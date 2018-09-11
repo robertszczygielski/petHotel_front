@@ -32,8 +32,8 @@ export class RoomListComponent implements OnInit {
     this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc);
   }
 
-  getAllRooms(regna: string, page: number, size: number, name: string, asc: boolean) {
-    this.roomService.findAll(regna, page, size, name, asc).subscribe(
+  protected getAllRooms(regna: string, page: number, size: number, sortedBy: string, asc: boolean) {
+    this.roomService.findAll(regna, page, size, sortedBy, asc).subscribe(
       rooms => {
         this.rooms = rooms;
       }, err => {
@@ -41,20 +41,20 @@ export class RoomListComponent implements OnInit {
       }
     );
 
-    this.roomService.totalPageNumbers().subscribe(
+    this.roomService.totalPageNumbers(this.regna).subscribe(
       pages => {
         this.pages = new Array(Math.ceil(pages / this.size));
       }
     )
   }
 
-  editRoomPage(room: Room) {
+  protected editRoomPage(room: Room) {
     if (room) {
       this.router.navigate(['/room/edit', room.roomNumber]);
     }
   }
 
-  deleteRoom(room: Room) {
+  protected deleteRoom(room: Room) {
     if (room) {
       this.roomService.deleteRoomByRoomNumber(room.roomNumber).subscribe(
         res => {
@@ -65,25 +65,29 @@ export class RoomListComponent implements OnInit {
     }
   }
 
-  redirectNewRoomPage() {
+  protected redirectNewRoomPage() {
     this.router.navigate(['/room/create']);
   }
 
-  setPage(i: any, event: any) {
+  protected setPage(i: any, event: any) {
     event.preventDefault();
     this.page = i;
     this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc);
   }
 
-  sort(isSorted: string, event: any) {
+  protected sort(isSorted: string, event: any) {
     event.preventDefault();
     this.isSorted = isSorted;
     this.asc = !this.asc;
     this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc);
   }
 
-  setRegna(regna): void {
+  protected setRegna(regna): void {
     this.regna = regna;
     this.getAllRooms(this.regna, this.page, this.size, this.isSorted, this.asc)
+  }
+
+  protected isPet(): boolean {
+    return this.regna === 'pet';
   }
 }

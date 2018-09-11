@@ -37,11 +37,11 @@
           <thead>
             <tr>
               <th>
-                <button type="button" class="btn" (click)="sort('roomNumber', $event)" href="">
+                <button type="button" class="btn" (click)="sort('roomAnimalNumber', $event)" href="">
                   #
                 </button>
-                <span *ngIf="!asc && isSorted === 'roomNumber'" class="glyphicon glyphicon-sort-by-order"></span>
-                <span *ngIf="asc && isSorted === 'roomNumber'" class="glyphicon glyphicon-sort-by-order-alt"></span>
+                <span *ngIf="!asc && isSorted === 'roomAnimalNumber'" class="glyphicon glyphicon-sort-by-order"></span>
+                <span *ngIf="asc && isSorted === 'roomAnimalNumber'" class="glyphicon glyphicon-sort-by-order-alt"></span>
               </th>
               <th>
                 <button type="button" class="btn" (click)="sort('numberOfPlaces', $event)" href="">
@@ -57,13 +57,22 @@
                 <span *ngIf="!asc && isSorted === 'freePlaces'" class="glyphicon glyphicon-sort-by-order"></span>
                 <span *ngIf="asc && isSorted === 'freePlaces'" class="glyphicon glyphicon-sort-by-order-alt"></span>
               </th>
-              <th>
+
+              <th *ngIf="isPet()">
                 <button type="button" class="btn" (click)="sort('petType', $event)" href="">
                   Pet type
                 </button>
                 <span *ngIf="!asc && isSorted === 'petType'" class="glyphicon glyphicon-sort-by-alphabet"></span>
                 <span *ngIf="asc && isSorted === 'petType'" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
               </th>
+              <th *ngIf="!isPet()">
+                <button type="button" class="btn" (click)="sort('temperature', $event)" href="">
+                  Temp.
+                </button>
+                <span *ngIf="!asc && isSorted === 'temperature'" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span *ngIf="asc && isSorted === 'temperature'" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+              </th>
+
               <th>
                 <button type="button" class="btn" (click)="sort('price', $event)" href="">
                   Price
@@ -79,7 +88,8 @@
               <th scope="row">{{room.roomNumber}}</th>
               <td>{{room.numberOfPlaces}}</td>
               <td>{{room.freePlaces}}</td>
-              <td>{{room.petType}}</td>
+              <td *ngIf="isPet()">{{room.petType}}</td>
+              <td *ngIf="!isPet()">{{room.temperature}}</td>
               <td>{{room.price}}</td>
               <td>
                 <button type="button" class="btn btn-success" (click)="editRoomPage(room)">Edit</button>

@@ -50,6 +50,19 @@
                 </div>
               </div>
 
+              <div *ngIf="!isPet()" class="col-xs-6 col-md-3 dropdown show">
+                <label>Insolation</label><br>
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="plantInsolation"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{insolation}}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                  <button *ngFor="let insolation of insolations" class="dropdown-item" type="button"
+                          (click)="setInsolation(insolation)">{{insolation}}</button>
+                </div>
+              </div>
+
               <div class="col-xs-6 col-md-2">
                 <label>Price</label>
                 <input type="text"

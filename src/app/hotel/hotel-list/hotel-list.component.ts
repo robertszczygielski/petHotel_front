@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BasicOwnerInfo } from "../../dtos/BaseOwnerInfo";
 import { HotelService } from "../hotel.service";
-import { Pet } from "../../dtos/Pet";
+import { Pet } from "../../dtos/pet/Pet";
 import { Router } from "@angular/router";
 
 
